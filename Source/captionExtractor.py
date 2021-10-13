@@ -1,6 +1,7 @@
 import helperFunctions
 import sys
 from youtube_transcript_api import YouTubeTranscriptApi
+import audioTranscriber
 
 def extractTranscript(transcript):
     wholeTranscript = ''
@@ -12,17 +13,15 @@ def extractTranscript(transcript):
 if __name__ == "__main__":
     youtubeLink = sys.argv[1]
     youtubeLinkID = helperFunctions.getID(youtubeLink)
-
-    transcriptFound = False
-
     try:
         transcript = YouTubeTranscriptApi.get_transcripts([youtubeLinkID], languages=['en'])
         transcriptFound = True
     except:
-        print("Transcript could not be found.")
         transcriptFound = False
 
-    wholeTranscript = extractTranscript(transcript)
+    if (transcriptFound):
+        wholeTranscript = extractTranscript(transcript)
+    else:
+        wholeTranscript = audioTranscriber.performTranscription('AudioFiles/%s'%(youtubeLinkID))
 
     print(wholeTranscript)
-

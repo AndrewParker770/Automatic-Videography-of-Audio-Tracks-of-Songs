@@ -13,10 +13,10 @@ if __name__ == "__main__":
 
     ydl_opts = {
         'format': 'bestaudio/best',
-        'outtmpl': 'AudioFiles/%s.mp3'%(helperFunctions.getID(youtubeLink)),
+        'outtmpl': 'AudioFiles/%s.wav'%(helperFunctions.getID(youtubeLink)),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
+            'preferredcodec': 'wav',
             'preferredquality': '192',
         }],
     }

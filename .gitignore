@@ -1,5 +1,4 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
 
 # C extensions
@@ -51,4 +50,5 @@ docs/_build/
 
 ###############
 
-Source/AudioFiles
+Source/AudioFiles/
+Source/__pycache__/

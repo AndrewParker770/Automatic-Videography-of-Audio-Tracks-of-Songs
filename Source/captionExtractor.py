@@ -20,8 +20,9 @@ if __name__ == "__main__":
         transcriptFound = False
 
     if (transcriptFound):
+        print(transcript)
         wholeTranscript = extractTranscript(transcript)
+        print(wholeTranscript)
     else:
-        wholeTranscript = audioTranscriber.performTranscription('AudioFiles/%s'%(youtubeLinkID))
-
-    print(wholeTranscript)
+    #    wholeTranscript = audioTranscriber.performTranscription('AudioFiles/%s'%(youtubeLinkID))
+        print("Caption could not be extracted")

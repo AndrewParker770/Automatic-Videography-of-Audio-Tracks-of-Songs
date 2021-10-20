@@ -1,3 +1,0 @@
-#!c:\users\andre\onedrive\desktop\workspace\dissertation\automatic-videography-of-audio-tracks-of-songs\virtualenvironment\audiovirtualenv\scripts\python.exe
-from numba.pycc import main
-main()

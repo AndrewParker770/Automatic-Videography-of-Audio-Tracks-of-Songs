@@ -21,9 +21,11 @@
 
 * 0.5hrs - Implemented an average beat extractor using Librosa Library
 
-* 2hrs - Researching extracting amplitudes with beats and bebugging PyGame visualisation[abandoned for now]
+* 2hrs - Researching extracting amplitudes with beats and bebugging PyGame visualisation (abandoned for now)
 
-* __hrs - Researching Django
+* 2hrs - Researching Django and integration with Firebase
+
+* 1hrs - Attempting to set-up Git actions to automatically store changes to the Virtual Environment (unsuccessful)
 
 ## 21 Oct 2021
 

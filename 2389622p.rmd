@@ -1,26 +1,30 @@
 # Timelog
 
-* PROJECT NAME
-* YOUR NAME
-* STUDENT_ID
-* SUPERVISOR NAME
+* Automatic Videography of Audio Tracks of Songs
+* Andrew Parker
+* 2389622p
+* Dubasis Gangnuly
 
-## Guidance
+## Week 3
 
-* This file contains the time log for your project. It will be submitted along with your final dissertation.
-* **YOU MUST KEEP THIS UP TO DATE AND UNDER VERSION CONTROL.**
-* This timelog should be filled out honestly, regularly (daily) and accurately. It is for *your* benefit.
-* Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
+* 
 
-## Week 1
+## Week 4
 
-### 19 Oct 2019
+### 19 Oct 2021
 
-* *4 hours* Read the project guidance notes
-* *0.5 hour* Created GitLab repository and cloned the cookiecutter for the projects
-* *1 hour* Modified dissertation template, compiled  
+* 
 
-## 20 Oct 2019
+## 20 Oct 2021
 
-* *1 hour* meeting with supervisor
-* *2 hours* writing initial version of test harness
+* 0.5hrs - Brainstormed potential ideas and investigated Librosa Library for beat extraction
+
+* 0.5hrs - Implemented an average beat extractor using Librosa Library
+
+* 2hrs - Researching extracting amplitudes with beats and bebugging PyGame visualisation[abandoned for now]
+
+* __hrs - Researching Django
+
+## 21 Oct 2021
+
+* 0.5 hrs - Advisor Meeting

@@ -6,7 +6,7 @@ import audioTranscriber
 def extractTranscript(transcript):
     wholeTranscript = ''
     for line in transcript[0][youtubeLinkID]:
-        wholeTranscript += (' ' + line['text']) 
+        wholeTranscript += (line['text'] + ' ') 
     return wholeTranscript
 
 
@@ -20,9 +20,7 @@ if __name__ == "__main__":
         transcriptFound = False
 
     if (transcriptFound):
-        print(transcript)
         wholeTranscript = extractTranscript(transcript)
         print(wholeTranscript)
     else:
-    #    wholeTranscript = audioTranscriber.performTranscription('AudioFiles/%s'%(youtubeLinkID))
         print("Caption could not be extracted")

@@ -2,18 +2,12 @@ import youtube_dl
 import sys
 import helperFunctions
 
-def getID(youtubeLink):
-    index = youtubeLink.find('=')
-    videoID = youtubeLink[index+1:]
-    return videoID
-
-if __name__ == "__main__":
-
-    youtubeLink = sys.argv[1]
+def stripAudio(youtubeLink):
+    youTubeID = helperFunctions.getID(youtubeLink)
 
     ydl_opts = {
         'format': 'bestaudio/best',
-        'outtmpl': 'AudioFiles/%s.wav'%(helperFunctions.getID(youtubeLink)),
+        'outtmpl': 'AudioFiles/{fname}.%(ext)s'.format(fname=youTubeID),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'wav',
@@ -23,4 +17,9 @@ if __name__ == "__main__":
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([youtubeLink])
+
+if __name__ == "__main__":
+    youtubeLink = sys.argv[1]
+    stripAudio(youtubeLink)
+    
 

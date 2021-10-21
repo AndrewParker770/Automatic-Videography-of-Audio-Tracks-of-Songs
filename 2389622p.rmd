@@ -31,6 +31,8 @@
 
 * 1hrs - Reworking SpeechRecognition program function due to 1min audio limit
 
+* 1.5hrs - Attempting to find appropraite google search api and debug search program
+
 ## 21 Oct 2021
 
 * 0.5 hrs - Advisor Meeting

@@ -18,8 +18,7 @@ def performTranscription(audioFileName):
         return("Transcription: " + r.recognize_google(audio))
     
 if __name__ == "__main__":
-    youtubeLink = sys.argv[1]
-    youtubeID = helperFunctions.getID(youtubeLink)
-    print(performTranscription(youtubeID))
+    fileName = sys.argv[1]
+    print(performTranscription(fileName))
 
 

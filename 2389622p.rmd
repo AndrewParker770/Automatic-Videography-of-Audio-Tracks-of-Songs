@@ -27,6 +27,8 @@
 
 * 1hrs - Attempting to set-up Git actions to automatically store changes to the Virtual Environment (unsuccessful)
 
+* 1hrs - Attempting to create visualisation of beats
+
 * 1hrs - Debugging SpeechRecognition (source being potentially corrupy .wav files)
 
 * 1hrs - Reworking SpeechRecognition program function due to 1min audio limit

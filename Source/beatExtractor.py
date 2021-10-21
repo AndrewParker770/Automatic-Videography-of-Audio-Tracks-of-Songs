@@ -3,14 +3,13 @@ import librosa
 import sys
 import helperFunctions
 import warnings
-import pygame
 
 
 if __name__ == "__main__":
-    youtubeLink = sys.argv[1]
-    youtubeLinkID = helperFunctions.getID(youtubeLink)
+    nameOfFile = sys.argv[1]
+    #youtubeLinkID = helperFunctions.getID(youtubeLink)
 
-    filename = 'AudioFiles/%s.wav'%(youtubeLinkID)
+    filename = 'AudioFiles/%s.wav'%(nameOfFile)
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -26,31 +25,31 @@ if __name__ == "__main__":
 
     print("Duration: {:.2f}".format(duration))
 
-    pygame.mixer.pre_init(44100, 16, 2, 4096)
-    pygame.init()
+    #pygame.mixer.pre_init(44100, 16, 2, 4096)
+    #pygame.init()
 
-    infoObject = pygame.display.Info()
+    #infoObject = pygame.display.Info()
 
-    screen_w = int(infoObject.current_w/2.2)    
-    screen_h = int(infoObject.current_w/2.2)
+    #screen_w = int(infoObject.current_w/2.2)    
+    #screen_h = int(infoObject.current_w/2.2)
 
     # Set up the drawing window
-    screen = pygame.display.set_mode([screen_w, screen_h])
+    #screen = pygame.display.set_mode([screen_w, screen_h])
 
-    MUSIC_END = pygame.USEREVENT+1
-    pygame.mixer.music.load(filename)
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_endevent(MUSIC_END)
+    #MUSIC_END = pygame.USEREVENT+1
+    #pygame.mixer.music.load(filename)
+    #pygame.mixer.music.play(-1)
+    #pygame.mixer.music.set_endevent(MUSIC_END)
 
-    clock = pygame.time.Clock()
+    #clock = pygame.time.Clock()
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == MUSIC_END:
-                running = False
-
-        clock.tick(60)
+    #running = True
+    #while running:
+    #    for event in pygame.event.get():
+    #        if event.type == MUSIC_END:
+    #            running = False
+##
+    #    clock.tick(60)
 
         
         

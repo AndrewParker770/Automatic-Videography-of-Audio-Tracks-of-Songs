@@ -38,3 +38,7 @@
 ## 21 Oct 2021
 
 * 0.5 hrs - Advisor Meeting
+
+## 1 Nov 2021 
+
+* 1 hrs - Creating Dissertation Latex file, setting up bibliography

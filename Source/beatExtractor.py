@@ -21,6 +21,8 @@ if __name__ == "__main__":
 
     beat_times = librosa.frames_to_time(beat_frames, sr)
 
+    print(beat_times)
+
     duration = librosa.get_duration(y, sr)
 
     print("Duration: {:.2f}".format(duration))

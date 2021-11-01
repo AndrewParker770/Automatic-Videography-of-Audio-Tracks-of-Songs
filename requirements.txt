@@ -8,6 +8,7 @@ click==7.1.2
 colorama==0.4.4
 cycler==0.10.0
 decorator==5.1.0
+Django==2.1.5
 ffmpeg==1.4
 google-api-core==1.31.3
 google-api-python-client==1.12.8

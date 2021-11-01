@@ -44,3 +44,5 @@
 * 1 hrs - Creating Dissertation Latex file, setting up bibliography
 
 * 1 hrs - Reading up on and creating a Django project 
+
+* 1 hrs - Creating Django project and setting up first test pages

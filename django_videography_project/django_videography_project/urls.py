@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from videography import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('videography/', include('videography.urls')),
+    path('about/', include('videography.urls')),
+    # The above maps any URLs starting with videography/ to be handled by videography.
+    path('admin/', admin.site.urls)
 ]

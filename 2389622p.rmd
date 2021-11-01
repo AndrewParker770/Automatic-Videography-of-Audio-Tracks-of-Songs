@@ -42,3 +42,5 @@
 ## 1 Nov 2021 
 
 * 1 hrs - Creating Dissertation Latex file, setting up bibliography
+
+* 1 hrs - Reading up on and creating a Django project 

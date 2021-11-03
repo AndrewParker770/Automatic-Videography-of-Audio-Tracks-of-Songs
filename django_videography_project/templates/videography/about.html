@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends 'videography/main.html' %}
 
-    <head>
-        <title>Videography</title>
-    </head>
+{% block content %}
+<div>
+    <a href='/videography/'>Index</a>.<br />
+    <a href='/videography/video/'>Video</a>.<br />
+</div>
 
-    <body>
-        <h1>App says...</h1>
-        <div>
-            About Page! <br />
-            <strong>{{ boldmessage }}</strong><br />
-        </div>
-        <div>
-            <a href='/videography/'>Index</a>.<br />
-            <a href='/videography/video/'>Video</a>.<br />
-        </div>
-    </body>
-
-</html>
+{% endblock content %}

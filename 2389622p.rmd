@@ -46,3 +46,11 @@
 * 1 hrs - Reading up on and creating a Django project 
 
 * 1 hrs - Creating Django project and setting up first test pages
+
+## 2 Nov 2021 
+
+* 0.5 hrs - Setting up Mendeley for paper review and reviewing papers
+
+* 1.5 hrs - Watching django tutorials and implementing django.
+
+## 3 Nov 2021

@@ -54,3 +54,7 @@
 * 1.5 hrs - Watching django tutorials and implementing django.
 
 ## 3 Nov 2021
+
+* 2hrs - Watched tutorials for django
+
+* 0.5hrs - Watching tutorial for and implementing bootstrap in django

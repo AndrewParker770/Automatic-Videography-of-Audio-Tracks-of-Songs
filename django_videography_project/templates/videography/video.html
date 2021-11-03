@@ -1,6 +1,9 @@
 {% extends 'videography/main.html' %}
 
 {% block content %}
-    <a href='/videography/about/'>About</a><br />
-    <a href='/videography/'>Index</a>.<br />
+    <div class="container">
+        <a class="btn btn-primary" href='/videography/' role="button">Index</a>
+        <a class="btn btn-primary" href='/videography/about/' role="button">About</a>
+    </div>
+    <hr>
 {% endblock content %}

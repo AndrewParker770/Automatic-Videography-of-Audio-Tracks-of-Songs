@@ -1,9 +1,40 @@
 {% extends 'videography/main.html' %}
 
 {% block content %}
-    <div class="container">
-        <a class="btn btn-primary" href='/videography/about/' role="button">About</a>
-        <a class="btn btn-primary" href='/videography/video/' role="button">Video</a>
+
+    <div id='spinner1' class="justify-content-center text-primary no-display">
+        <h3 class='text-dark'> Compiling Video...</h3>
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
-    <hr>
+        
+    <div id='index-body'>
+        {% if form != None %}
+        <div class="container">
+            <form action="/videography/" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit" id='button1'>
+            </form>
+        </div>
+        {% endif %}
+        <hr>
+        <p> How did we get here? {{method}}</p>
+        <p> {% if status != None %} {{status}} {% else %} Nothing to say {% endif %}</p>
+    </div>
+
+    <script>
+
+        const spinner = document.getElementById('spinner1')
+        const navigationBar = document.getElementById('nav')
+        const index = document.getElementById('index-body')
+
+        $('#button1').on('click', function () {
+            index.classList.add('no-display')
+            navigationBar.classList.add('no-display')
+            spinner.classList.add('d-flex')
+        })
+    </script>
+
 {% endblock content %}

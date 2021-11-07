@@ -9,6 +9,6 @@ if __name__ == "__main__":
     genius = Genius(ACCESS_TOKEN)
     artist = genius.search_artist(artist_name, max_songs=3, sort="title")
 
-    song = artist.song("Raar")
+    song = artist.song("")
 
-    print(song.lyrics)
+    print(song)

@@ -72,3 +72,7 @@
 * 1 hrs - Avisor meeting and creating presentation slides
 
 * 1 hrs - Reading research papers
+
+## 6 Nov 2021
+
+* 3 hrs - Integrating django and audioStripper Component

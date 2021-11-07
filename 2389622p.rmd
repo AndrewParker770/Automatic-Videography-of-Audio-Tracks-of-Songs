@@ -5,15 +5,21 @@
 * 2389622p
 * Dubasis Gangnuly
 
-## Week 3
-
-* 
-
 ## Week 4
 
 ### 19 Oct 2021
 
-* 
+* 0.5 hrs - Setting up a GitHub repository and researching Virtual Environments
+
+* 2 hrs - Researching packages to strip YouTube audio then creating and debugging program
+
+* 1 hrs - Creating and debugging program to fetch the captions from a YouTube video
+
+* 3 hrs - Creating and debugging Speech Recognition for no accessible captions on videos.
+
+* 1 hrs - Reworking Speech Recognition and researching possible alternatives to current attempt.
+
+* 0.5 hrs - Fixing Virtual environment caused by .gitignore when pushed to repository
 
 ## 20 Oct 2021
 

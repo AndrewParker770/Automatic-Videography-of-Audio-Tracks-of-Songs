@@ -75,4 +75,4 @@
 
 ## 6 Nov 2021
 
-* 3 hrs - Integrating django and audioStripper Component
+* 4 hrs - Integrating django and audioStripper Component

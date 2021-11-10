@@ -16,6 +16,7 @@ def stripAudio(youtubeLink):
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': 'Source/AudioFiles/{fname}.%(ext)s'.format(fname=youTubeID),
+        "quiet": True,
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'wav',

@@ -82,3 +82,7 @@
 ## 6 Nov 2021
 
 * 4 hrs - Integrating django and audioStripper Component
+
+## 9 Nov 2021
+
+* 2 hrs - Reserching and implementing forced alignment

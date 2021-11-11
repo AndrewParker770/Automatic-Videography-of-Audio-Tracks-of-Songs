@@ -52,8 +52,9 @@ def about(request):
 
 def video(request, pk):
     video_file_path = 'videos/' + str(pk) + '.mp4'
-    print(request.session['search_term'])
-    context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path}
+    print()
+    img_file_path = 'imgs/' + request.session['search_term'] + '/Image_1.jpg'
+    context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path, 'img_file_path': img_file_path}
     return render(request, 'videography/video.html', context=context_dict)
 
 def collection(request):

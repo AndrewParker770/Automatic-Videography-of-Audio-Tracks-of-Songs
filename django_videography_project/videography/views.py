@@ -25,6 +25,8 @@ def index(request):
         if form.is_valid():
             deleteFiles(['Source/AudioFiles', 'Source/TextFiles'])
 
+            request.session['search_term'] = form.cleaned_data['search_term']
+
             audio_result = stripAudio(form.cleaned_data['youtube_link'])
             youtubeID = getID(form.cleaned_data['youtube_link'])
             text_result = extractLyrics(form.cleaned_data['artist_name'], form.cleaned_data['song_name'], youtubeID)
@@ -37,8 +39,6 @@ def index(request):
             clip.audio = audio
             clip.set_duration(songLength).write_videofile("videography/static/videos/%s.mp4"%(youtubeID), fps=24)
 
-            form = LinkForm()
-            context_dict = {'currentpage': 'Index', 'form': form }
             return redirect('/videography/video/%s'%(youtubeID))
     else:
         form = LinkForm()
@@ -52,6 +52,7 @@ def about(request):
 
 def video(request, pk):
     video_file_path = 'videos/' + str(pk) + '.mp4'
+    print(request.session['search_term'])
     context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path}
     return render(request, 'videography/video.html', context=context_dict)
 

@@ -1,27 +1,26 @@
 {% extends 'videography/main.html' %}
 
 {% block content %}
-
-    <div id='spinner1' class="justify-content-center text-primary no-display">
-        <h3 class='text-dark'> Compiling Video...</h3>
-        <div class="spinner-border" role="status">
+    <div id = spinner1 class="container text-center no-display text-primary">
+        <br>
+        <br>
+        <div class="spinner-border align-middle" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
         
     <div id='index-body'>
         {% if form != None %}
-        <div class="container">
+        <div class="form-group">
             <form action="/videography/" method="post">
                 {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Submit" id='button1'>
+                <div class='container col-md-6'>
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" id='button1'>
+                </div>
             </form>
         </div>
         {% endif %}
-        <hr>
-        <p> How did we get here? {{method}}</p>
-        <p> {% if status != None %} {{status}} {% else %} Nothing to say {% endif %}</p>
     </div>
 
     <script>
@@ -33,7 +32,7 @@
         $('#button1').on('click', function () {
             index.classList.add('no-display')
             navigationBar.classList.add('no-display')
-            spinner.classList.add('d-flex')
+            spinner.classList.remove('no-display')
         })
     </script>
 

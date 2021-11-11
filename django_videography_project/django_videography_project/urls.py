@@ -7,5 +7,7 @@ urlpatterns = [
     path('videography/', include('videography.urls')),
     path('about/', include('videography.urls'), name='about'),
     path('video/', include('videography.urls'), name='video'),
+    path('collection/', include('videography.urls'), name='video'),
+    path('feedback/', include('videography.urls'), name='feedback'),
     path('admin/', admin.site.urls)
 ]

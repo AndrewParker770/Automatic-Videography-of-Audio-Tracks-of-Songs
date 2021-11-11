@@ -1,9 +1,15 @@
 {% extends 'videography/main.html' %}
+{% load staticfiles %}
 
 {% block content %}
-    <div class="container">
-        <a class="btn btn-primary" href='/videography/' role="button">Index</a>
-        <a class="btn btn-primary" href='/videography/about/' role="button">About</a>
+<br>
+<div class="container">
+    <div class='d-flex justify-content-center'>
+        <video width="640" height="480" controls>
+            <source src="{% static file_path type='video/mp4' %}">
+            Your browser does not support the video tag.
+        </video>
     </div>
-    <hr>
+</div>
+    
 {% endblock content %}

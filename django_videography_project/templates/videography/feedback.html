@@ -1,0 +1,15 @@
+{% extends 'videography/main.html' %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <form action="/videography/feedback/" method="post">
+            {% csrf_token %}
+            <div class='container col-md-6'>
+                {{ form }}
+                <br>
+                <input type="submit" value="Submit" id='button1'>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

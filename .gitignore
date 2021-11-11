@@ -1,5 +1,6 @@
 **/AudioFiles/
 **/TextFiles/
+**/static/
 **/__pycache__/
 venv/
 

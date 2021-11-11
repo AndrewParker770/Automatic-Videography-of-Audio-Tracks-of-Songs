@@ -89,10 +89,12 @@
 
 ## 10 Nov 2021
 
-* 8 hrs - 
+* 8 hrs - Integrating django with current components, integrated FireBase as realtime database.
 
 ## 11 Nov 2021
 
 * 1 hrs - Working on Bing Image Search
 
 * 0.5 hrs - Advisor Meeting
+
+* 1.5 hrs - Passing variables between views and Bing Image Search fully implemented

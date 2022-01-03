@@ -48,18 +48,14 @@ def stripAudio(youtubeLink):
     YOUTUBE_GENERIC = 'https://www.youtube.com/watch?v='
 
     try:
+        
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([YOUTUBE_GENERIC + youTubeID])
+            meta = ydl.extract_info(YOUTUBE_GENERIC + youTubeID, download=True)
         result = 'Success'
     except:
         result = 'Failed'
 
-    return result
+    return result, meta['uploader']
     
-
-if __name__ == "__main__":
-    youtubeLink = sys.argv[1]
-    #print(getID(youtubeLink))
-    #stripAudio(youtubeLink)
     
 

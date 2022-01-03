@@ -3,6 +3,8 @@ from django.shortcuts import redirect
 
 from Source.audioStripper import *
 from Source.getLyrics import extractLyrics
+from Source.captionExtractor import getKeywords
+from Source.imageSearch import performImageSearch
 
 from Source.firebase import sendToDatabase
 
@@ -11,7 +13,9 @@ from .forms import FeedbackForm
 
 import moviepy.editor as mpy
 import gizeh
+import time
 from bing_image_downloader import downloader
+
 
 def make_frame(t):
     surface = gizeh.Surface(128,128) # width, height
@@ -23,17 +27,19 @@ def index(request):
     if request.method == 'POST':
         form = LinkForm(request.POST)
         if form.is_valid():
-            deleteFiles(['Source/AudioFiles', 'Source/TextFiles'])
+            deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'videography/static/imgs', 'videography/static/videos'])
 
             request.session['search_term'] = form.cleaned_data['search_term']
 
-            audio_result = stripAudio(form.cleaned_data['youtube_link'])
+            audio_result, artist_name = stripAudio(form.cleaned_data['youtube_link'])
             youtubeID = getID(form.cleaned_data['youtube_link'])
             text_result = extractLyrics(form.cleaned_data['artist_name'], form.cleaned_data['song_name'], youtubeID)
 
-            downloader.download(form.cleaned_data['search_term'], limit=5,  output_dir='videography/static/imgs/', adult_filter_off=False, force_replace=False, timeout=60, verbose=True)
+            keywords = getKeywords(youtubeID)
+            performImageSearch(keywords)
             
             songLength = getSongLength(youtubeID)
+
             audio = mpy.AudioFileClip("Source/AudioFiles/%s.wav"%(youtubeID))
             clip = mpy.VideoClip(make_frame, duration=songLength)
             clip.audio = audio

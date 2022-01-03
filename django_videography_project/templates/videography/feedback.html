@@ -7,9 +7,33 @@
             {% csrf_token %}
             <div class='container col-md-6'>
                 {{ form }}
-                <br>
+                <b-form-group label="Radios using options" v-slot="{ ariaDescribedby }">
+                    <b-form-radio-group
+                        id="radio-group-1"
+                        v-model="selected"
+                        :options="options"
+                        :aria-describedby="ariaDescribedby"
+                        name="radio-options">
+                    </b-form-radio-group>
+                  </b-form-group>
                 <input type="submit" value="Submit" id='button1'>
             </div>
         </form>
     </div>
+
+    <script>
+        export default {
+          data() {
+            return {
+              selected: 'first',
+              options: [
+                { text: 'Toggle this custom radio', value: 'first' },
+                { text: 'Or toggle this other custom radio', value: 'second' },
+                { text: 'This one is Disabled', value: 'third', disabled: true },
+                { text: 'This is the 4th radio', value: { fourth: 4 } }
+              ]
+            }
+          }
+        }
+    </script>
 {% endblock content %}

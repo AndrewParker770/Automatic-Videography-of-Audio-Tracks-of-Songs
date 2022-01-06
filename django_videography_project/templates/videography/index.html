@@ -12,30 +12,110 @@
     </div>
         
     <div id='index-body'>
-        {% if form != None %}
         <div class="form-group">
             <form action="/videography/" method="post">
                 {% csrf_token %}
                 <div class='container col-md-6'>
-                    {{ form.as_p }}
+                    <br>
+                    <h3>Complete the form below:</h3>
+                    <div id=errorid>
+                        {% if error != None %}
+                            <br>
+                            <p id=errorid class="text-danger">Error: {{error}}. Please Try Again.</p>
+                        {% endif %} 
+                    </div> 
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" onclick="radioFunc('captions')" value="captions" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Use YouTube Captions
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('lyrics')" value="lyrics">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Analyse Lyric video
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('spoken')" value="spoken">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            Use Speech Recognition (Spoken)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('music')" value="music">
+                        <label class="form-check-label" for="flexRadioDefault4">
+                            Use Speech Recognition (Music)
+                        </label>
+                    </div>
+                    <br>
+                    <div id=formid>
+                        <div id=linkId>
+                            {{ link_form.as_p }}
+                        </div>
+                        <div id=artistId>
+                            {{ artist_form.as_p }}
+                        </div>
+                    </div>
                     <input type="submit" value="Submit" id='button1'>
                 </div>
             </form>
+            
         </div>
-        {% endif %}
     </div>
 
     <script>
 
-        const spinner = document.getElementById('spinner1')
-        const navigationBar = document.getElementById('nav')
-        const index = document.getElementById('index-body')
+        const spinner = document.getElementById('spinner1');
+        const navigationBar = document.getElementById('nav');
+        const index = document.getElementById('index-body');
+
+        var formType = 'link';
+
+        const artist_html = document.getElementById('artistId').innerHTML;
+        const link_html = document.getElementById('linkId').innerHTML;
+
+        document.getElementById('artistId').remove();
+        document.getElementById('linkId').remove();
+
+        const formDiv = document.getElementById('formid');
+        formDiv.innerHTML = link_html;
+
+        const error = document.getElementById('errorid')
+        if (error != null){
+            const myTimeout = setTimeout(function(){
+                error.remove()
+            }, 15000);
+        };
 
         $('#button1').on('click', function () {
             index.classList.add('no-display')
             navigationBar.classList.add('no-display')
             spinner.classList.remove('no-display')
-        })
+
+            if (formType == 'link'){
+                artist.remove()
+            }else{
+                link.remove()
+            }
+        });
+
+        function radioFunc(name){
+
+            const artist = document.getElementById('artistId')
+            const link = document.getElementById('linkId')
+
+            if (name == 'captions' || name == 'spoken'){
+                formDiv.innerHTML = link_html
+                
+                formType = 'list'
+                
+            }else if (name == 'lyrics' || name == 'music'){
+                formDiv.innerHTML = artist_html
+
+                formType = 'artist'
+            }
+        };
     </script>
 
 {% endblock content %}

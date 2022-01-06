@@ -1,4 +1,5 @@
-import youtube_dl
+from pytube import YouTube
+import moviepy.editor
 import sys, os, shutil
 import time
 import librosa
@@ -33,29 +34,23 @@ def getID(youtubeLink):
     return videoID
 
 def stripAudio(youtubeLink):
-    youTubeID = getID(youtubeLink)
+    youtubeID = getID(youtubeLink)
 
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'outtmpl': 'Source/AudioFiles/{fname}.%(ext)s'.format(fname=youTubeID),
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'wav',
-            'preferredquality': '192',
-        }],
-    }
+    yt = YouTube(youtubeLink)
+    video_file_extension = 'mp4'
+    filename = youtubeID + "." + video_file_extension
+    yt.streams.filter(progressive=True, file_extension=video_file_extension).order_by('resolution').desc().first().download("Source/VideoFiles/", filename=filename)
+    result = True
 
-    YOUTUBE_GENERIC = 'https://www.youtube.com/watch?v='
+    audio_file_extension = "wav"
+    video = moviepy.editor.VideoFileClip("Source/VideoFiles/" + f"{youtubeID}.{video_file_extension}")
+    audio = video.audio
 
-    try:
-        
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            meta = ydl.extract_info(YOUTUBE_GENERIC + youTubeID, download=True)
-        result = 'Success'
-    except:
-        result = 'Failed'
+    audio.write_audiofile("Source/AudioFiles/" + f"{youtubeID}.{audio_file_extension}")
 
-    return result, meta['uploader']
+    author = yt.author
+
+    return result, author
     
     
 

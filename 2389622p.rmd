@@ -98,3 +98,50 @@
 * 0.5 hrs - Advisor Meeting
 
 * 1.5 hrs - Passing variables between views and Bing Image Search fully implemented
+
+## 18 November 2021
+
+* 0.5 hrs - Advisor Meeting
+
+## 2 Decemeber 2021
+
+* 0.5 hrs - Advisor Meeting
+
+* 1 hrs - trying to identify limits of the Bing Search Api 
+
+* 2 hrs - Researching the scraping of images from Wikipedia
+
+## 9 December 2021
+
+* 0.5 hrs - Advisor Meeting
+
+
+## 11 December 2021
+
+* 3 hrs - Implementing a scaping tool for images from Wikipedia which align with keywords
+
+* 2 hrs - Further work into extrcating images from sections of web page specific to Wikipedia
+
+## 12 Decemeber 2021 
+
+* 2 hrs - Implementing a keyword extracting form the transcripts
+
+
+# 3 January 2022
+
+* 0.5 hrs - Designed way to determine timestamp from lyric video
+
+* 3 hrs - Creating a system to analyse and record the text found on lyric video using pytesseract
+
+* 0.5 hrs - Contacting individuals for access to an english langauge model for forced alignment
+
+
+## 4 January 2022
+
+* 2 hrs - Rework audioStripper to now download the entire youtube video and seperate audio
+
+## 5 January 2022
+
+* 3 hrs - Debugging passing multiple forms from a django webpage
+
+* 0.5 hrs - Finalising index.html 

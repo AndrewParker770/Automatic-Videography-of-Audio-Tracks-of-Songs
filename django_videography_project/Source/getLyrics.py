@@ -1,5 +1,7 @@
 from lyricsgenius import Genius
 import sys
+import os
+import re
 
 ACCESS_TOKEN = "aqMxsR0rc6Uz9WCDm0WPyqRBuHrSSgyuEVYDadc75f7bkeke83GBJRZaFyN7_W5T"
 
@@ -16,21 +18,13 @@ def extractLyrics(artist_name, song_name, youtubeID):
     lyrics = song.lyrics
 
     # check for then remove footer section added by genius (sometimes)
-    char = lyrics.find('98EmbedShare URLCopyEmbedCopy')
-    if (char != -1):
-        lyrics = lyrics[:char]
+    lyrics = re.sub(r"[0-9]{2}EmbedShare URLCopyEmbedCopy", "",lyrics)
 
     # add lyrics into text file for later use
-    with open("Source/TextFiles/%s.txt" % (youtubeID), "w") as file:
+    with open(f"Source/TextFiles/{youtubeID}.txt", "w") as file:
         file.write(lyrics) 
-
-
-if __name__ == "__main__":
-    artist_name = sys.argv[1]
-    song_name = sys.argv[2]
-    youtubeID = sys.argv[3]
-
-    extractLyrics(artist_name, song_name, youtubeID)
+    
+    return os.path.exists(f"Source/TextFiles/{youtubeID}.txt")
 
 
 

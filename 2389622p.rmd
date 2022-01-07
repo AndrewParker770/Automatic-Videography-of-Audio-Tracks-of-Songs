@@ -140,8 +140,14 @@
 
 * 2 hrs - Rework audioStripper to now download the entire youtube video and seperate audio
 
+* 1 hrs - Incorporated errors to be displayed in Django forms
+
 ## 5 January 2022
 
 * 3 hrs - Debugging passing multiple forms from a django webpage
 
 * 0.5 hrs - Finalising index.html 
+
+## 6 January 2022
+
+* 0.25 hrs - creating error message for caption fetcher

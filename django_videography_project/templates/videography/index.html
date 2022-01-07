@@ -13,40 +13,42 @@
         
     <div id='index-body'>
         <div class="form-group">
-            <form action="/videography/" method="post">
+            <form action="/videography/" method="post" onsubmit="submittionFunciton()">
                 {% csrf_token %}
                 <div class='container col-md-6'>
                     <br>
                     <h3>Complete the form below:</h3>
-                    <div id=errorid>
+                    <div>
                         {% if error != None %}
                             <br>
                             <p id=errorid class="text-danger">Error: {{error}}. Please Try Again.</p>
                         {% endif %} 
                     </div> 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" onclick="radioFunc('captions')" value="captions" checked>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Use YouTube Captions
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('lyrics')" value="lyrics">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Analyse Lyric video
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('spoken')" value="spoken">
-                        <label class="form-check-label" for="flexRadioDefault3">
-                            Use Speech Recognition (Spoken)
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('music')" value="music">
-                        <label class="form-check-label" for="flexRadioDefault4">
-                            Use Speech Recognition (Music)
-                        </label>
+                    <div id=radiodiv>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" onclick="radioFunc('captions')" value="captions" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Use YouTube Captions
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('lyrics')" value="lyrics">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Analyse Lyric video
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('spoken')" value="spoken">
+                            <label class="form-check-label" for="flexRadioDefault3">
+                                Use Speech Recognition (Spoken)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('music')" value="music">
+                            <label class="form-check-label" for="flexRadioDefault4">
+                                Use Speech Recognition (Music)
+                            </label>
+                        </div>
                     </div>
                     <br>
                     <div id=formid>
@@ -70,6 +72,21 @@
         const navigationBar = document.getElementById('nav');
         const index = document.getElementById('index-body');
 
+        function unloadFunction(){
+            index.classList.remove('no-display')
+            navigationBar.classList.remove('no-display')
+            spinner.classList.add('no-display')
+
+            formDiv.innerHTML = ""
+            formDiv.innerHTML = link_html
+
+            radiodiv.innerHTML = ""
+            radiodiv.innerHTML = radio_temp
+        }
+
+
+
+
         var formType = 'link';
 
         const artist_html = document.getElementById('artistId').innerHTML;
@@ -81,24 +98,20 @@
         const formDiv = document.getElementById('formid');
         formDiv.innerHTML = link_html;
 
+        const radio_temp = document.getElementById('radiodiv');
+
         const error = document.getElementById('errorid')
         if (error != null){
             const myTimeout = setTimeout(function(){
                 error.remove()
-            }, 15000);
+            }, 5000);
         };
 
-        $('#button1').on('click', function () {
+        function submittionFunciton(){
             index.classList.add('no-display')
             navigationBar.classList.add('no-display')
             spinner.classList.remove('no-display')
-
-            if (formType == 'link'){
-                artist.remove()
-            }else{
-                link.remove()
-            }
-        });
+        }
 
         function radioFunc(name){
 

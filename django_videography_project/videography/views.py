@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 
 from Source.audioStripper import *
 from Source.getLyrics import extractLyrics
-from Source.captionExtractor import getKeywords
+from Source.captionExtractor import getCaptions
 from Source.imageSearch import performImageSearch
 
 from Source.firebase import sendToDatabase
@@ -45,13 +45,24 @@ def index(request):
         if form.is_valid():
             deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/imgs', 'videography/static/videos'])
 
-            # get youtube url
+            # get information from forms
             if form_type == 'artist':
-                youtubeUrl = form.cleaned_data['artist_youtube_link']
+                youtubeUrl = form.cleaned_data['youtube_link']
+                songName = form.cleaned_data['song_name']
+                artistName = form.cleaned_data['artist_name']
             elif form_type == 'link':
-                youtubeUrl = form.cleaned_data['link_youtube_link']
-            
-            method = request.POST['operaion']
+                youtubeUrl = form.cleaned_data['youtube_link']
+
+            """
+
+            To be removed
+
+            """
+            if (method == 'spoken' or method == 'music'):
+                link_form = LinkForm()
+                artist_form = ArtistForm()
+                context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'This option is currently not functional'}
+                return render(request, 'videography/index.html', context=context_dict)
             
             # validate url
             YOUTUBE_GENERIC = 'https://www.youtube.com/watch?v='
@@ -70,23 +81,43 @@ def index(request):
                 return render(request, 'videography/index.html', context=context_dict)
         
             
+            audio_result, youtube_author = stripAudio(youtubeUrl)
+            youtubeID = getID(youtubeUrl)
 
-            audio_result, youtube_author = stripAudio()
-            youtubeID = getID(form.cleaned_data['youtube_link'])
-            
-            if form.cleaned_data['caption_bool'] == "on":
-                useCaptions = True
+            # fetch genius lyrics if method requires it
+            if form_type == 'artist':
+                try:
+                    file_create = extractLyrics(artistName, songName, youtubeID)
+                    if not file_create:
+                        # file was not created
+                        link_form = LinkForm()
+                        artist_form = ArtistForm()
+                        context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values'}
+                        return render(request, 'videography/index.html', context=context_dict)
+                except:
+                    # error occured - genius lyrics could not be found
+                    link_form = LinkForm()
+                    artist_form = ArtistForm()
+                    context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values'}
+                    return render(request, 'videography/index.html', context=context_dict)
             else:
-                useCaptions = False
-            
-            if not useCaptions:
-                text_result = extractLyrics(form.cleaned_data['artist_name'], form.cleaned_data['song_name'], youtubeID)
-            
-            keywords = getKeywords(youtubeID, useCaptions)
+                if method == 'captions':
+                    success, transcript_dict = getCaptions(youtubeID)
+
+                    #delete this
+                    link_form = LinkForm()
+                    artist_form = ArtistForm()
+                    context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Redirect after captions'}
+                    return render(request, 'videography/index.html', context=context_dict)
+
+
+                #speech recognsion 
+
+            keywords = getKeywords(youtubeID)
             performImageSearch(keywords)
-            
             songLength = getSongLength(youtubeID)
 
+            # create the video here????
             audio = mpy.AudioFileClip("Source/AudioFiles/%s.wav"%(youtubeID))
             clip = mpy.VideoClip(make_frame, duration=songLength)
             clip.audio = audio

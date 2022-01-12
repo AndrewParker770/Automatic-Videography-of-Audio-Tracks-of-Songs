@@ -3,10 +3,6 @@ import sys
 
 def returnKeyWords(text, numOfKeywords):
     
-    #text_file = open(filename, "r")
-    #lyrics = text_file.read()
-    #text_file.close()
-    
     language = "en"
     max_ngram_size = 1
     deduplication_thresold = 0.9
@@ -17,10 +13,6 @@ def returnKeyWords(text, numOfKeywords):
     keywords = custom_kw_extractor.extract_keywords(text)
 
     return keywords
-
-if __name__ == "__main__":
-    filename = sys.argv[1]
-    returnKeyWords(filename)
 
     
 

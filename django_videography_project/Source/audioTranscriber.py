@@ -1,14 +1,12 @@
 import sys
 import speech_recognition
 import os
-import helperFunctions
-import audioStripper
 from pydub import AudioSegment
 
 def performTranscription(audioFileName):
 
     # transcribe audio file                                                         
-    AUDIO_FILE = "AudioFiles/{fname}.wav".format(fname=audioFileName)
+    AUDIO_FILE = f"AudioFiles/{audioFileName}.wav"
 
     # use the audio file as the audio source                                        
     r = speech_recognition.Recognizer()

@@ -1,4 +1,3 @@
-import requests
 import json
 import requests
 import sys
@@ -10,7 +9,8 @@ import imghdr
 from bs4 import BeautifulSoup
 import wikipedia
 
-from pil import Image
+from PIL import Image
+import numpy as np
 
 WIKI_REQUEST = 'https://en.wikipedia.org/wiki/'
 
@@ -64,6 +64,34 @@ def get_wiki_images(search_term):
                 sources.append((image.find("img"))['src'])
     
     printSources(sources, title, 5)
+
+def getGoogleImage(keywords):
+    for word in keywords:
+        url = "https://www.google.com/search?hl=jp&q=" + word + "&btnG=Google+Search&tbs=0&safe=off&tbm=isch"
+        headers = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0",}
+
+        response = requests.get(url=url, headers=headers)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        os.makedirs(f'videography/static/imgs/{word}')
+
+        images = soup.find_all("img", {"class": "yWs4tf"})
+
+        counter = 0
+        for source in images:  
+            if counter > 5:
+                break
+
+            img_data = requests.get(source['src']).content
+            with open(f'videography/static/imgs/{word}/{counter}.jpeg', 'wb') as handler:
+                handler.write(img_data)
+
+            image = Image.open(f'videography/static/imgs/{word}/{counter}.jpeg')
+            if len(np.array(image).shape) == 3:
+                counter += 1
+
+
 
 def deleteFiles(folders):
     for folder in folders:

@@ -151,3 +151,41 @@
 ## 6 January 2022
 
 * 0.25 hrs - creating error message for caption fetcher
+
+## 7 January 2022
+
+* 1 hrs - Creating generic keyword extractor for.txt file
+
+* 1 hrs - Scraping Wikipedia for google imaegs scraping
+
+## 8 January 2022
+
+* 2 hrs - Looking into emojis as replacement for pngs
+
+* 4 hrs - Working on debugging stitching images together for videos
+
+## 9 January 2022
+
+* 2 hrs - Contiuing working on google image Scraper 
+
+* 2 hrs - Reaserching moviepy's method of stringing images together (and making prototype)
+
+## 10 January 2022
+
+* 2 hrs - Creating logic for timing of image placement 
+
+* 2 hrs - Creating generic video generator from produced timings
+
+* 2 hrs - Debugging video generator 
+
+## 11 January 2022
+
+* 2 hrs - Debugging video generator 
+
+* 0.5 hrs - Integrating sperate image generator into project
+
+## 12 January 2022
+
+* 0.5 hrs - Debugging video displaying on webpage
+
+* 0.5 hrs - Debugging adding audio to video

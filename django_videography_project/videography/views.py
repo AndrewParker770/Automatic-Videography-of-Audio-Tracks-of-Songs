@@ -3,8 +3,15 @@ from django.shortcuts import redirect
 
 from Source.audioStripper import *
 from Source.getLyrics import extractLyrics
+
 from Source.captionExtractor import getCaptions
+from Source.captionExtractor import getKeywords
+
 from Source.imageSearch import performImageSearch
+from Source.imageSearch import getGoogleImage
+
+from Source.compClip import getTimings
+from Source.compClip import compileTimings
 
 from Source.firebase import sendToDatabase
 
@@ -12,17 +19,13 @@ from .forms import LinkForm
 from .forms import ArtistForm
 from .forms import FeedbackForm
 
-import moviepy.editor as mpy
+from moviepy.editor import *
 import gizeh
 import time
 import re
+import json
 
 
-def make_frame(t):
-    surface = gizeh.Surface(128,128) # width, height
-    circle = gizeh.circle(32, xy = (64,64), fill=(1,1,1))
-    circle.draw(surface)
-    return surface.get_npimage() # returns a 8-bit RGB array
 
 def index(request):
     if request.method == 'POST':
@@ -58,7 +61,7 @@ def index(request):
             To be removed
 
             """
-            if (method == 'spoken' or method == 'music'):
+            if (method == 'music'): #method == 'spoken' or 
                 link_form = LinkForm()
                 artist_form = ArtistForm()
                 context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'This option is currently not functional'}
@@ -103,6 +106,27 @@ def index(request):
             else:
                 if method == 'captions':
                     success, transcript_dict = getCaptions(youtubeID)
+                    keywords = getKeywords(youtubeID)
+
+                    # get images to use in video
+                    getGoogleImage(keywords)
+
+                    # get youtube video audio
+                    audioclip = VideoFileClip(f"Source/VideoFiles/{youtubeID}.mp4").audio
+                    song_duration = audioclip.duration
+
+                    timings = getTimings(keywords, transcript_dict, youtubeID)
+                    compileTimings(timings, song_duration, youtubeID, audioclip)
+
+                    return redirect('/videography/video/%s'%(youtubeID))
+
+
+                    #with open('Source/TextFiles/json.txt', 'w') as outfile:
+                    #    json.dump(transcript_dict, outfile)
+
+                    #with open('Source/TextFiles/keys.txt', 'w') as outfile:
+                    #    for word in keywords:
+                    #        outfile.write(f'{word}')
 
                     #delete this
                     link_form = LinkForm()
@@ -110,6 +134,13 @@ def index(request):
                     context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Redirect after captions'}
                     return render(request, 'videography/index.html', context=context_dict)
 
+                if method == 'spoken':
+                    #delete this
+                    link_form = LinkForm()
+                    artist_form = ArtistForm()
+                    context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Redirect after spoken'}
+                    return render(request, 'videography/index.html', context=context_dict)
+                    
 
                 #speech recognsion 
 
@@ -117,11 +148,7 @@ def index(request):
             performImageSearch(keywords)
             songLength = getSongLength(youtubeID)
 
-            # create the video here????
-            audio = mpy.AudioFileClip("Source/AudioFiles/%s.wav"%(youtubeID))
-            clip = mpy.VideoClip(make_frame, duration=songLength)
-            clip.audio = audio
-            clip.set_duration(songLength).write_videofile("videography/static/videos/%s.mp4"%(youtubeID), fps=24)
+            
 
             return redirect('/videography/video/%s'%(youtubeID))
     else:

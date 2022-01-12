@@ -4,19 +4,21 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from Source.extractText import returnKeyWords
 import os
 
-"""
-def getKeywords(youtubeLinkID, caption_bool):
-    stopwords = getStopWords("Source/stopwords.txt")
 
-    transcript = getTranscript(youtubeLinkID)
+def getKeywords(youtubeID):
+    
+    #get all lines from .txt file
+    with open(f"Source/TextFiles/{youtubeID}.txt", "r") as f:
+        lines = f.read().splitlines() 
         
+    #find a single key word in each lne
     keywords = set([])
-    for section in transcript[0][youtubeLinkID]:
-        result = returnKeyWords(section['text'], 1)
+    for line in lines:
+        result = returnKeyWords(line, 1)
         if result != []:
-            keywords.add(result[0][0])
+            keywords.add(result[0][0].lower())
     return keywords
-"""
+
 
 
 def getCaptions(youtubeID):
@@ -35,8 +37,3 @@ def flattenTranscript(transcript):
     for line in transcript[0][youtubeLinkID]:
         wholeTranscript += (line['text'] + ' ') 
     return wholeTranscript
-
-def getStopWords(filename):
-    with open(filename) as f:
-        stopwords = f.read().splitlines()
-    return stopwords

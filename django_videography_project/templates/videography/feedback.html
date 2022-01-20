@@ -6,6 +6,12 @@
         <form action="/videography/feedback/" method="post">
             {% csrf_token %}
             <div class='container col-md-6'>
+                <div>
+                    {% if message != None %}
+                        <br>
+                        <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
+                    {% endif %} 
+                </div> 
                 {{ form }}
                 <b-form-group label="Radios using options" v-slot="{ ariaDescribedby }">
                     <b-form-radio-group
@@ -16,8 +22,18 @@
                         name="radio-options">
                     </b-form-radio-group>
                   </b-form-group>
+                <br>
                 <input type="submit" value="Submit" id='button1'>
             </div>
         </form>
     </div>
+
+    <script>
+        const message = document.getElementById('messageid')
+        if (message != null){
+            const myTimeout = setTimeout(function(){
+                message.remove()
+            }, 5000);
+        };
+    </script>
 {% endblock content %}

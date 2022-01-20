@@ -166,7 +166,8 @@ def feedback(request):
         form = FeedbackForm(request.POST)
         if form.is_valid():
             sendToDatabase(form.cleaned_data)
-            context_dict = {'currentpage': 'Feedback'}
+            form = FeedbackForm()
+            context_dict = {'currentpage': 'Feedback', 'form': form}
             return render(request, 'videography/feedback.html', context=context_dict)
     else:
         form = FeedbackForm()

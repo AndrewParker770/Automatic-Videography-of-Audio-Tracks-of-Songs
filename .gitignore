@@ -1,6 +1,7 @@
 **/AudioFiles/
 **/TextFiles/
 **/VideoFiles/
+**/FrameFiles/
 **/static/
 **/__pycache__/
 **/db.sqlite3

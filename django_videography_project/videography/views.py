@@ -6,9 +6,11 @@ from Source.getLyrics import extractLyrics
 
 from Source.captionExtractor import getCaptions
 from Source.captionExtractor import getKeywords
+from Source.captionExtractor import getLyricTranscript
 
 from Source.imageSearch import performImageSearch
 from Source.imageSearch import getGoogleImage
+from Source.imageSearch import extractFrames
 
 from Source.compClip import getTimings
 from Source.compClip import compileTimings
@@ -46,7 +48,7 @@ def index(request):
             return render(request, 'videography/index.html', context=context_dict)
         
         if form.is_valid():
-            deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/imgs', 'videography/static/videos'])
+            deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/imgs', 'videography/static/videos', 'Source/FrameFiles'])
 
             # get information from forms
             if form_type == 'artist':
@@ -105,6 +107,31 @@ def index(request):
                     artist_form = ArtistForm()
                     context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values'}
                     return render(request, 'videography/index.html', context=context_dict)
+
+                # 'lyrics'
+                if method == 'lyrics':
+                    # get our frames
+                    fps = extractFrames(aliasYoutubeID)
+                    
+                    #get key words from lyrics text file created above
+                    keywords = getKeywords(aliasYoutubeID)
+
+                    # get images to use in video
+                    getGoogleImage(keywords)
+
+                    # get a transcript from lyrics (will need to pass keywords)
+                    success, timings_dict = getLyricTranscript(keywords, fps)
+
+                    #create video
+                    timings = getTimings(keywords, transcript_dict)
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+
+                    return redirect(f'/videography/video/{trueYoutubeID}')
+
+
+                # 'music'
+
+                
             else:
                 if method == 'captions':
                     success, transcript_dict = getCaptions(trueYoutubeID, aliasYoutubeID)
@@ -152,7 +179,7 @@ def about(request):
     return render(request, 'videography/about.html', context=context_dict)
 
 def video(request, pk):
-    file_name = re.sub('[^a-zA-Z ]', '0', str(pk))
+    file_name = re.sub('[^a-zA-Z1-9]', '0', str(pk))
     video_file_path = f'videos/{file_name}.mp4'
     context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path}
     return render(request, 'videography/video.html', context=context_dict)

@@ -11,6 +11,7 @@ import wikipedia
 
 from PIL import Image
 import numpy as np
+import cv2
 
 WIKI_REQUEST = 'https://en.wikipedia.org/wiki/'
 
@@ -142,3 +143,30 @@ def printSources(sources, title, MAX_DOWNLOAD):
 def performImageSearch(searchTerms):
     for term in searchTerms:
         get_wiki_images(term)
+
+def extractFrames(youtubeID):
+    if not os.path.exists('Source/FrameFiles'):
+        os.makedirs('Source/FrameFiles')
+    
+    video = cv2.VideoCapture(f"Source/VideoFiles/{youtubeID}.mp4")
+    fps = video.get(cv2.CAP_PROP_FPS)
+
+    path = 'Source/FrameFiles'
+    ret, frame = video.read()
+    index = 0
+    name = f'{path}/frame{index}.png'
+    index += 1
+    cv2.imwrite(name, frame)
+
+    while ret:
+        ret, frame = video.read()
+        if (ret and (index % int(fps//2) == 0)):
+            name = f'{path}/frame{index}.png'
+            cv2.imwrite(name, frame)
+        
+        index +=1
+
+    video.release()
+    cv2.destroyAllWindows()
+
+    return fps

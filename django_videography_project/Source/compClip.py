@@ -6,6 +6,7 @@ import random
 import re
 import numpy as np
 
+
 def color_clip(size, duration, fps=25, color=(0,0,0), output='color.mp4'):
     return ColorClip(size, color, duration=duration)
 
@@ -14,9 +15,9 @@ def create_image_clip(file_path, img_duration):
     image_clip.set_position(("center","center")).resize( (460,720) )
     return image_clip
 
-def getTimings(keywords, transcript, youtubeID):
+def getTimings(keywords, transcript):
     timings = []
-    for section in transcript[0][youtubeID]:
+    for section in transcript:
         #extract text and remove newline and punctuation
         text = section['text'].lower()
         text = re.sub('[\n]+', ' ', text)
@@ -25,7 +26,10 @@ def getTimings(keywords, transcript, youtubeID):
         # does this section have a key word
         possible_keys = []
         for word in keywords:
-            if word in text:
+            key_list = word.split(" ")
+            #list comp each word of key statement is in text
+            element_list = [element for element in key_list if element in text]
+            if len(key_list) == len(element_list):
                 possible_keys.append(word)
         
         # no keys this section?
@@ -33,7 +37,7 @@ def getTimings(keywords, transcript, youtubeID):
             continue
         
         #order these possible keys, based on appearance in lyrics
-        possible_keys.sort(key=text.find)
+        possible_keys.sort(key=lambda element: text.find(element.split(" ")[0]))
 
         section_duration = section['duration']
         section_start = section['start']
@@ -75,10 +79,13 @@ def compileTimings(timings, song_duration, youtubeID, audio_clip):
         start_time = entry['start']
         buffer_clip = color_clip(size, start_time)
 
+        #make a single word 
+        words = word.split(" ")
+        filename = "_".join(words)
 
         #create random img clip from corresponding image folder
         img_duration = entry['duration']
-        file_path = os.path.join(os.curdir, f'videography/static/imgs/{word}')
+        file_path = os.path.join(os.curdir, f'videography/static/imgs/{filename}')
         img = random.choice(os.listdir(file_path))
         img_source = os.path.join(file_path, img)
         image_clip = create_image_clip(img_source, img_duration)

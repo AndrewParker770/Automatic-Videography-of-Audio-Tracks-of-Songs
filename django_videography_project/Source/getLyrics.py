@@ -3,6 +3,7 @@ import sys
 import os
 import re
 
+#access token - should be secure to have available
 ACCESS_TOKEN = "aqMxsR0rc6Uz9WCDm0WPyqRBuHrSSgyuEVYDadc75f7bkeke83GBJRZaFyN7_W5T"
 
 def extractLyrics(artist_name, song_name, youtubeID):

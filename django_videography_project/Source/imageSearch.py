@@ -66,15 +66,24 @@ def get_wiki_images(search_term):
     printSources(sources, title, 5)
 
 def getGoogleImage(keywords):
+    #refines google search a little to exclude titles of media/products etc
+    exclude_search = ["-movie", "-books", "-TV", "-product"]
     for word in keywords:
-        url = "https://www.google.com/search?hl=jp&q=" + word + "&btnG=Google+Search&tbs=0&safe=off&tbm=isch"
+        #manage if "word" is more than one word
+        keyword_list = word.split(" ")
+        whole_list = keyword_list + exclude_search
+        search_string = "+".join(whole_list)
+
+        file_name = "_".join(keyword_list)
+
+        url = "https://www.google.com/search?hl=jp&q=" + search_string + "&btnG=Google+Search&tbs=0&safe=off&tbm=isch"
         headers = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0",}
 
         response = requests.get(url=url, headers=headers)
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        os.makedirs(f'videography/static/imgs/{word}')
+        os.makedirs(f'videography/static/imgs/{file_name}')
 
         images = soup.find_all("img", {"class": "yWs4tf"})
 
@@ -84,10 +93,10 @@ def getGoogleImage(keywords):
                 break
 
             img_data = requests.get(source['src']).content
-            with open(f'videography/static/imgs/{word}/{counter}.jpeg', 'wb') as handler:
+            with open(f'videography/static/imgs/{file_name}/{counter}.jpeg', 'wb') as handler:
                 handler.write(img_data)
 
-            image = Image.open(f'videography/static/imgs/{word}/{counter}.jpeg')
+            image = Image.open(f'videography/static/imgs/{file_name}/{counter}.jpeg')
             if len(np.array(image).shape) == 3:
                 counter += 1
 

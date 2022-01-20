@@ -3,6 +3,7 @@ import moviepy.editor
 import sys, os, shutil
 import time
 import librosa
+import re
 
 def waitFor(seconds):
     time.sleep(seconds)
@@ -35,22 +36,23 @@ def getID(youtubeLink):
 
 def stripAudio(youtubeLink):
     youtubeID = getID(youtubeLink)
+    fakeYoutubeID = re.sub('[^a-zA-Z ]', '0', youtubeID)
 
     yt = YouTube(youtubeLink)
     video_file_extension = 'mp4'
-    filename = youtubeID + "." + video_file_extension
+    filename = f"{fakeYoutubeID}.{video_file_extension}"
     yt.streams.filter(progressive=True, file_extension=video_file_extension).order_by('resolution').desc().first().download("Source/VideoFiles/", filename=filename)
     result = True
 
     audio_file_extension = "wav"
-    video = moviepy.editor.VideoFileClip("Source/VideoFiles/" + f"{youtubeID}.{video_file_extension}")
+    video = moviepy.editor.VideoFileClip("Source/VideoFiles/" + f"{fakeYoutubeID}.{video_file_extension}")
     audio = video.audio
 
-    audio.write_audiofile("Source/AudioFiles/" + f"{youtubeID}.{audio_file_extension}")
+    #audio.write_audiofile("Source/AudioFiles/" + f"{youtubeID}.{audio_file_extension}")
 
     author = yt.author
 
-    return result, author
+    return result, author, fakeYoutubeID
     
     
 

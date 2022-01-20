@@ -84,13 +84,15 @@ def index(request):
                 return render(request, 'videography/index.html', context=context_dict)
         
             
-            audio_result, youtube_author = stripAudio(youtubeUrl)
-            youtubeID = getID(youtubeUrl)
+
+            audio_result, youtube_author, aliasYoutubeID = stripAudio(youtubeUrl) # need to generate an alias id as packages error with punctuation common in youTube ids
+            trueYoutubeID = getID(youtubeUrl)
+            
 
             # fetch genius lyrics if method requires it
             if form_type == 'artist':
                 try:
-                    file_create = extractLyrics(artistName, songName, youtubeID)
+                    file_create = extractLyrics(artistName, songName, trueYoutubeID)
                     if not file_create:
                         # file was not created
                         link_form = LinkForm()
@@ -105,34 +107,21 @@ def index(request):
                     return render(request, 'videography/index.html', context=context_dict)
             else:
                 if method == 'captions':
-                    success, transcript_dict = getCaptions(youtubeID)
-                    keywords = getKeywords(youtubeID)
+                    success, transcript_dict = getCaptions(trueYoutubeID, aliasYoutubeID)
+                    keywords = getKeywords(aliasYoutubeID)
 
                     # get images to use in video
                     getGoogleImage(keywords)
 
                     # get youtube video audio
-                    audioclip = VideoFileClip(f"Source/VideoFiles/{youtubeID}.mp4").audio
+                    audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
                     song_duration = audioclip.duration
 
-                    timings = getTimings(keywords, transcript_dict, youtubeID)
-                    compileTimings(timings, song_duration, youtubeID, audioclip)
+                    #create video
+                    timings = getTimings(keywords, transcript_dict)
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
-                    return redirect('/videography/video/%s'%(youtubeID))
-
-
-                    #with open('Source/TextFiles/json.txt', 'w') as outfile:
-                    #    json.dump(transcript_dict, outfile)
-
-                    #with open('Source/TextFiles/keys.txt', 'w') as outfile:
-                    #    for word in keywords:
-                    #        outfile.write(f'{word}')
-
-                    #delete this
-                    link_form = LinkForm()
-                    artist_form = ArtistForm()
-                    context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Redirect after captions'}
-                    return render(request, 'videography/index.html', context=context_dict)
+                    return redirect(f'/videography/video/{trueYoutubeID}')
 
                 if method == 'spoken':
                     #delete this
@@ -163,9 +152,9 @@ def about(request):
     return render(request, 'videography/about.html', context=context_dict)
 
 def video(request, pk):
-    video_file_path = 'videos/' + str(pk) + '.mp4'
-    img_file_path = 'imgs/' + request.session['search_term'] + '/Image_1.jpg'
-    context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path, 'img_file_path': img_file_path}
+    file_name = re.sub('[^a-zA-Z ]', '0', str(pk))
+    video_file_path = f'videos/{file_name}.mp4'
+    context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path}
     return render(request, 'videography/video.html', context=context_dict)
 
 def collection(request):

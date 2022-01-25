@@ -18,7 +18,8 @@ Open bash terminal and navigate to workspace folder.
 
 ```bash
 cd ~/<path>
-
+```
+```bash
 git clone https://github.com/AndrewParker770/Automatic-Videography-of-Audio-Tracks-of-Songs.git
 ```
 
@@ -26,9 +27,11 @@ Create python virtual environment, activate it, and download the modules used by
 
 ```bash
 python -m venv venv
-
+```
+```bash
 . venv/Script/activate
-
+```
+```bash
 pip install -r requirements.txt
 ```
 

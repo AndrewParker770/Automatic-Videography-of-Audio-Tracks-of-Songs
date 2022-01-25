@@ -15,5 +15,7 @@ ___
 #### About me
 
 Name: Andrew Parker
+
 E-mail: 2389622p@student.gla.ac.uk
+
 4th Year Computer Science Student at The University of Glasgow

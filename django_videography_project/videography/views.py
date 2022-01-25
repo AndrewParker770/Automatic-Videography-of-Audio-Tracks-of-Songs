@@ -15,6 +15,11 @@ from Source.imageSearch import extractFrames
 from Source.compClip import getTimings
 from Source.compClip import compileTimings
 
+from Source.musicAlign import downloadDriver
+from Source.musicAlign import getSeleniumAlign
+from Source.musicAlign import validateJson
+from Source.musicAlign import trimTimings
+
 from Source.firebase import sendToDatabase
 
 from .forms import LinkForm
@@ -57,17 +62,6 @@ def index(request):
                 artistName = form.cleaned_data['artist_name']
             elif form_type == 'link':
                 youtubeUrl = form.cleaned_data['youtube_link']
-
-            """
-
-            To be removed
-
-            """
-            if (method == 'music'): #method == 'spoken' or 
-                link_form = LinkForm()
-                artist_form = ArtistForm()
-                context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'This option is currently not functional'}
-                return render(request, 'videography/index.html', context=context_dict)
             
             # validate url
             YOUTUBE_GENERIC = 'https://www.youtube.com/watch?v='
@@ -122,6 +116,10 @@ def index(request):
                     # get a transcript from lyrics (will need to pass keywords)
                     success, timings_dict = getLyricTranscript(keywords, fps)
 
+                    # get youtube video audio
+                    audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
+                    song_duration = audioclip.duration
+
                     #create video
                     timings = getTimings(keywords, transcript_dict)
                     compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
@@ -130,6 +128,29 @@ def index(request):
 
 
                 # 'music'
+                elif method == 'music':
+
+                    #get key words from lyrics text file created above
+                    keywords = getKeywords(aliasYoutubeID)
+
+                    # get images to use in video
+                    getGoogleImage(keywords)
+
+                    #generate alignment through selenium
+                    getSeleniumAlign(aliasYoutubeID)
+
+                    #keep getting alignment from website until it is correct
+                    while (validateJson(aliasYoutubeID)):
+                        getSeleniumALign(aliasYoutubeID)
+                    
+                    # get youtube video audio
+                    audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
+                    song_duration = audioclip.duration
+
+                    timings = trimTimings(keywords)
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+
+                    return redirect(f'/videography/video/{trueYoutubeID}')
 
                 
             else:

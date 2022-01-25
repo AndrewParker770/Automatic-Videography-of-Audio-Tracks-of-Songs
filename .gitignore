@@ -6,4 +6,4 @@
 **/__pycache__/
 **/db.sqlite3
 venv/
-
+**/chromedriver.exe

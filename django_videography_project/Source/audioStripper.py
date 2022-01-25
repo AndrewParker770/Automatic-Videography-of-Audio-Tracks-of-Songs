@@ -44,11 +44,11 @@ def stripAudio(youtubeLink):
     yt.streams.filter(progressive=True, file_extension=video_file_extension).order_by('resolution').desc().first().download("Source/VideoFiles/", filename=filename)
     result = True
 
-    audio_file_extension = "wav"
+    audio_file_extension = "mp3"
     video = moviepy.editor.VideoFileClip("Source/VideoFiles/" + f"{fakeYoutubeID}.{video_file_extension}")
     audio = video.audio
 
-    #audio.write_audiofile("Source/AudioFiles/" + f"{youtubeID}.{audio_file_extension}")
+    audio.write_audiofile("Source/AudioFiles/" + f"{fakeYoutubeID}.{audio_file_extension}")
 
     author = yt.author
 

@@ -73,6 +73,7 @@ pyfoal==0.0.3
 pyOpenSSL==21.0.0
 pypar==0.0.2
 pyparsing==2.4.7
+pytesseract==0.3.8
 python-dateutil==2.8.2
 python-resize-image==1.1.19
 pytube==11.0.2
@@ -100,6 +101,7 @@ trio==0.19.0
 trio-websocket==0.9.2
 uritemplate==3.0.1
 urllib3==1.26.7
+wget==3.2
 wikipedia==1.4.0
 wsproto==1.0.0
 yake==0.4.8

@@ -182,7 +182,7 @@
 
 * 2 hrs - Debugging video generator 
 
-* 0.5 hrs - Integrating sperate image generator into project
+* 0.5 hrs - Integrating image generator into project
 
 ## 12 January 2022
 
@@ -199,4 +199,27 @@
 ## 19 January 2022
 
 * 0.5 hrs - Looking into Firebase security
+
+* 3 hrs - Integrating lyric video logic into Django (incomplete)
+
+# 20 January 2022
+
+* 1 hrs - Meeting and meeting prep
+
+# 21 January 2022
+
+* 0.5 hrs - Reasearching new forced alignment tool
+
+* 3 hrs - Attempting to install Singularity to use tool
+
+* 1 hrs - Attempting to get API wrapper for alignment tool to work
+
+# 23 January 2022
+
+* 7 hrs - Implementing and debugging accessing alignment tool through Selenium
+
+# 24 January 2022 
+
+* 2 hrs - Fully implemented alignment tool for django webframe
+
 

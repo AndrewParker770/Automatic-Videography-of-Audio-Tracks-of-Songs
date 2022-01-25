@@ -4,7 +4,13 @@ This project is meant to showcase the current bounds of Information Retrieval(IR
 
 ### Prerequisite
 
-*Python
+* [Python v3.x](https://www.python.org/)
+* [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
+    * Add
+    * Add 
+* [Chrome](https://support.google.com/chrome/answer/95346?hl=en-GB&co=GENIE.Platform%3DDesktop)
+* [FFmpeg](https://www.ffmpeg.org/)
+    * Should be able to run on command line within virtual environment outlined below
 
 ### Installation and Running
 

@@ -2,8 +2,37 @@
 
 This project is meant to showcase the current bounds of Information Retrieval(IR), natural language processing and tools in forced alignment
 
-### Dependencies
+### Prerequisite
 
+*Python
+
+### Installation and Running
+
+Open bash terminal and navigate to workspace folder. 
+
+```bash
+cd ~/<path>
+
+git clone https://github.com/AndrewParker770/Automatic-Videography-of-Audio-Tracks-of-Songs.git
+```
+
+Create python virtual environment, activate it, and download the modules used by the project:
+
+```bash
+python -m venv venv
+
+. venv/Script/activate
+
+pip install -r requirements.txt
+```
+
+```bash
+cd django_videography_project
+
+python manage.py runserver
+
+```
+Terminal output should prompt to open browser and access [local host.](http://127.0.0.1:8000/)
 
 
 ### Citations

@@ -14,6 +14,7 @@ from Source.imageSearch import extractFrames
 
 from Source.compClip import getTimings
 from Source.compClip import compileTimings
+from Source.compClip import getLyricTimings
 
 from Source.musicAlign import downloadDriver
 from Source.musicAlign import getSeleniumAlign
@@ -121,14 +122,14 @@ def index(request):
                     getGoogleImage(keywords)
 
                     # get a transcript from lyrics (will need to pass keywords)
-                    success, timings_dict = getLyricTranscript(keywords, fps)
+                    frame_list = getLyricTranscript(keywords, fps)
+                    timings = getLyricTimings(frame_list, fps)
 
                     # get youtube video audio
                     audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
                     song_duration = audioclip.duration
 
                     #create video
-                    timings = getTimings(keywords, transcript_dict)
                     compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
                     return redirect(f'/videography/video/{trueYoutubeID}')
@@ -154,6 +155,8 @@ def index(request):
                     audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
                     song_duration = audioclip.duration
 
+
+                    #TODO: allow adding a buffer
                     timings = trimTimings(keywords)
                     compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
@@ -173,6 +176,7 @@ def index(request):
                     song_duration = audioclip.duration
 
                     #create video
+                    #TODO: make a better estimation of where the words are
                     timings = getTimings(keywords, transcript_dict)
                     compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
@@ -185,6 +189,7 @@ def index(request):
                     context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Redirect after spoken'}
                     return render(request, 'videography/index.html', context=context_dict)
                     
+                    #TODO: get spoken word working
 
                     #speech recognsion 
 

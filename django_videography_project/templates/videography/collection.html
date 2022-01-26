@@ -7,29 +7,33 @@
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Artist</th>
                     <th scope="col">Song Name</th>
                     <th scope="col">Link</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% with number=0 %}  
                 {% for file in files %}
                     <tr>
-                    {% for key, value in file.items %}
-                        {% if key != 'aliasYoutubeID'%}
-                            {% if key == 'youtubeID'%}
-                                <td>
-                                    <a href="/videography/video/{{value}}">View Video</a>
-                                </tr>
-                            {% else %}
-                                <td>
-                                    {{ value }}
-                                </td>
-                            {% endif%}
-                        {% endif %}
-                    {% endfor %}
+                        <th scope="row">{{ forloop.counter }}</th>
+                        {% for key, value in file.items %}
+                            {% if key != 'aliasYoutubeID'%}
+                                {% if key == 'youtubeID'%}
+                                    <td>
+                                        <a href="/videography/video/{{value}}">View Video</a>
+                                    </tr>
+                                {% else %}
+                                    <td>
+                                        {{ value }}
+                                    </td>
+                                {% endif%}
+                            {% endif %}
+                        {% endfor %}
                     </tr>
                 {% endfor %}
+                {% endwith %}  
                 </tbody>
             </table>
         {% else %}

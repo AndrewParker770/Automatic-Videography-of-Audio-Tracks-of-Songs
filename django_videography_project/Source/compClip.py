@@ -98,3 +98,62 @@ def compileTimings(timings, song_duration, youtubeID, audio_clip):
     comp_clip.audio = audio_clip
     comp_clip.write_videofile(f"videography/static/videos/{youtubeID}.mp4", fps=24)
 
+
+def getLyricTimings(frame_list, fps):
+    previous_timing = []
+    timings = []
+    key_word_list = None
+    for entry_dict in frame_list:
+        key, value = list(entry_dict.items())[0]
+        if len(previous_timing) == 0:
+            # just starting the streth of frames
+            previous_timing.append(key)
+            key_word_list = value
+        elif value == key_word_list:
+            # another frame in a strech, add frame number and continue
+            previous_timing.append(key)
+        elif value != key_word_list:
+
+            #determine total duration
+            start_time = (previous_timing[0]/(fps/2)) * 0.5
+            end_time = (previous_timing[-1]/(fps/2)) * 0.5
+            duration = end_time - start_time
+
+            # determine timings
+            duration_step = duration / len(value)
+            counter = 0
+            for word in key_word_list:
+                time = {'key': word, 'start': start_time + (duration_step * counter), 'duration': duration_step}
+                counter += 1
+                timings.append(time)
+
+            # reset previous timings and add new frame and key_word list 
+            previous_timing = [key]
+            key_word_list = value
+
+    #deal with remaing timings
+    #determine total duration
+    start_time = (previous_timing[0]/(fps/2)) * 0.5
+    end_time = (previous_timing[-1]/(fps/2)) *0.5
+    duration = end_time - start_time
+
+    # determine timings
+    duration_step = duration / len(value)
+    counter = 0
+    for word in key_word_list:
+        time = {'key': word, 'start': start_time + (duration_step * counter), 'duration': duration_step}
+        counter += 1
+        timings.append(time)
+    
+    return timings
+
+
+    
+
+
+    #e.g. {770: ['chance']}
+
+    time = {'key': key, 'start': section_start + (duration_step * counter), 'duration': duration_step}
+    counter += 1
+    timings.append(time)
+    return timings

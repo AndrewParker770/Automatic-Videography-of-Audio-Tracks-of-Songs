@@ -69,7 +69,7 @@ def getLyricTranscript(keywords, fps):
 
     # start, duration, keywords
 
-    frame_dict = []
+    frame_list = []
     #cycle through all frames in the file
     for i in range(0, maximum_frame + 1, int(fps/2)):
         print(f"Processing: {i}")
@@ -83,8 +83,6 @@ def getLyricTranscript(keywords, fps):
                 possible_keys.append(word)
 
         if len(possible_keys) != 0:
-            frame_dict.append({i : possible_keys})
+            frame_list.append({i : possible_keys})
     
-    print(frame_dict)
-
-    #return success, transcript_dict
+    return frame_list

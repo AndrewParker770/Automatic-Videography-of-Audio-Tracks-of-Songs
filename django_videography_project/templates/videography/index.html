@@ -26,13 +26,13 @@
                     </div> 
                     <div id=radiodiv>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('music')" value="music">
+                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" onclick="radioFunc('music')" value="music" checked>
                             <label class="form-check-label" for="flexRadioDefault4">
                                 Alignment Tool (Music)
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" onclick="radioFunc('captions')" value="captions" checked>
+                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" onclick="radioFunc('captions')" value="captions">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 YouTube Captions
                             </label>
@@ -96,7 +96,7 @@
         document.getElementById('linkId').remove();
 
         const formDiv = document.getElementById('formid');
-        formDiv.innerHTML = link_html;
+        formDiv.innerHTML = artist_html;
 
         const radio_temp = document.getElementById('radiodiv');
 

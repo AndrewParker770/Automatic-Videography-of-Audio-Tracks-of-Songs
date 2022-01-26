@@ -5,10 +5,15 @@
 <br>
 <div class="container">
     <div class='d-flex justify-content-center'>
-            <video width="640" height="480" controls controlsList="nodownload" preload="none">
+        {% if video_file_path == None %}
+            <br>
+            <p id=errorid class="text-danger">Error: This video does not exist in your collection. <a href="/">Return to homepage.</a></p>
+        {% else %}
+            <video width="640" height="480" controls controlsList="nodownload" preload="none" autoplay>
                 <source src="{% static video_file_path type='video/mp4' %}">
                 Your browser does not support the video tag.
             </video>
+        {% endif %} 
     </div>
 </div>
     

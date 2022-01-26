@@ -4,6 +4,7 @@ import sys, os, shutil
 import time
 import librosa
 import re
+import json
 
 def waitFor(seconds):
     time.sleep(seconds)
@@ -53,6 +54,22 @@ def stripAudio(youtubeLink):
     author = yt.author
 
     return result, author, fakeYoutubeID
+
+def createCollectionJSON(song_name, artist_name, youtubeID, aliasYoutubeID):
+
+    json_string = {
+        "song_name" : song_name,
+        "artist_name" : artist_name,
+        "youtubeID" : youtubeID,
+        "aliasYoutubeID": aliasYoutubeID
+    }
+    
+    collectionPath = os.path.join(os.getcwd(), "videography", "static", "collection")
+
+    with open(os.path.join(collectionPath, f'{aliasYoutubeID}.json'), 'w') as f:
+        json.dump(json_string, f)
+
+    return
     
     
 

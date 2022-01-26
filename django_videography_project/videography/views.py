@@ -62,6 +62,8 @@ def index(request):
                 artistName = form.cleaned_data['artist_name']
             elif form_type == 'link':
                 youtubeUrl = form.cleaned_data['youtube_link']
+                songName = 'Unknown'
+                artistName = 'Unknown'
             
             # validate url
             YOUTUBE_GENERIC = 'https://www.youtube.com/watch?v='
@@ -83,12 +85,17 @@ def index(request):
 
             audio_result, youtube_author, aliasYoutubeID = stripAudio(youtubeUrl) # need to generate an alias id as packages error with punctuation common in youTube ids
             trueYoutubeID = getID(youtubeUrl)
-            
+
+            # for ease of creating files to be kept for the collection tab
+            COLLECT_JSON = True
+            if COLLECT_JSON: 
+                createCollectionJSON(songName, artistName, trueYoutubeID, aliasYoutubeID)
+
 
             # fetch genius lyrics if method requires it
             if form_type == 'artist':
                 try:
-                    file_create = extractLyrics(artistName, songName, trueYoutubeID)
+                    file_create = extractLyrics(artistName, songName, aliasYoutubeID)
                     if not file_create:
                         # file was not created
                         link_form = LinkForm()
@@ -141,7 +148,7 @@ def index(request):
 
                     #keep getting alignment from website until it is correct
                     while (validateJson(aliasYoutubeID)):
-                        getSeleniumALign(aliasYoutubeID)
+                        getSeleniumAlign(aliasYoutubeID)
                     
                     # get youtube video audio
                     audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
@@ -179,15 +186,18 @@ def index(request):
                     return render(request, 'videography/index.html', context=context_dict)
                     
 
-                #speech recognsion 
+                    #speech recognsion 
 
-            keywords = getKeywords(youtubeID)
-            performImageSearch(keywords)
-            songLength = getSongLength(youtubeID)
+                    keywords = getKeywords(youtubeID)
+                    performImageSearch(keywords)
+                    songLength = getSongLength(youtubeID)
 
             
 
-            return redirect('/videography/video/%s'%(youtubeID))
+            link_form = LinkForm()
+            artist_form = ArtistForm()
+            context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Should not have reached this point'}
+            return render(request, 'videography/index.html', context=context_dict)
     else:
         link_form = LinkForm()
         artist_form = ArtistForm()
@@ -201,12 +211,34 @@ def about(request):
 
 def video(request, pk):
     file_name = re.sub('[^a-zA-Z1-9]', '0', str(pk))
+
     video_file_path = f'videos/{file_name}.mp4'
+
+    if not os.path.exists(os.path.join(os.getcwd(), "videography", "static", video_file_path)):
+        if os.path.exists(os.path.join(os.getcwd(), "videography", "static", f'collection/{file_name}.mp4')):
+            video_file_path = f'collection/{file_name}.mp4'
+        else:
+            video_file_path = None
+    
+    print(video_file_path)
+    print(f'{file_name}')
+
     context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path}
     return render(request, 'videography/video.html', context=context_dict)
 
 def collection(request):
     context_dict = {'currentpage': 'Collection'}
+
+    json_files = []
+    path = os.path.join(os.getcwd(), 'videography', 'static', 'collection')
+    for file in os.listdir(path):
+        if file.endswith(".json"):
+            with open (os.path.join(path, file), 'r') as f:
+                entry = json.load(f)
+                json_files.append(entry)
+    
+    context_dict['files'] = json_files
+
     return render(request, 'videography/collection.html', context=context_dict)
 
 def feedback(request):

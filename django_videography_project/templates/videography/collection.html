@@ -3,13 +3,39 @@
 {% block content %}
     <br>
     <div class='container col-md-6'>
-        <h3> A colleciton of music to review</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in nulla lorem. Ut egestas velit faucibus nisi tempor suscipit. Aenean porttitor lacinia ligula vitae iaculis. Duis odio sapien, accumsan ut condimentum vel, finibus a urna.</p>
-        <br>
-        <h5> Intro</h5>
-        <p> mi elit, interdum eu nibh id, egestas tincidunt velit. Donec vitae odio eget quam pellentesque bibendum sed vel massa. Suspendisse vel turpis et sem molestie bibendum sed vel justo. Nulla dictum mollis pharetra. Pellentesque at aliquet tortor, quis tempor ex. Praesent aliquet leo id faucibus consequat. Curabitur vitae arcu mattis, pretium mauris eget, mattis enim. Proin tempus lacus id sem condimentum, eget aliquam mi vehicula. Donec vulputate efficitur sem quis ornare. Morbi ac maximus libero. Nunc non euismod libero. Cras suscipit vitae mi vel pulvinar. Mauris gravida luctus odio, eget tincidunt mauris hendrerit eu. Sed mattis viverra vulputate. Curabitur sit amet mauris porttitor, porta neque ac, ultrices nunc.</p>
-        <br>
-        <h5> Results </h5>
-        <p> mi elit, interdum eu nibh id, egestas tincidunt velit. Donec vitae odio eget quam pellentesque bibendum sed vel massa. Suspendisse vel turpis et sem molestie bibendum sed vel justo. Nulla dictum mollis pharetra. Pellentesque at aliquet tortor, quis tempor ex. Praesent aliquet leo id faucibus consequat. Curabitur vitae arcu mattis, pretium mauris eget, mattis enim. Proin tempus lacus id sem condimentum, eget aliquam mi vehicula. Donec vulputate efficitur sem quis ornare. Morbi ac maximus libero. Nunc non euismod libero. Cras suscipit vitae mi vel pulvinar. Mauris gravida luctus odio, eget tincidunt mauris hendrerit eu. Sed mattis viverra vulputate. Curabitur sit amet mauris porttitor, porta neque ac, ultrices nunc.</p>
+        {% if files|length != 0 %}
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Song Name</th>
+                    <th scope="col">Link</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for file in files %}
+                    <tr>
+                    {% for key, value in file.items %}
+                        {% if key != 'aliasYoutubeID'%}
+                            {% if key == 'youtubeID'%}
+                                <td>
+                                    <a href="/videography/video/{{value}}">View Video</a>
+                                </tr>
+                            {% else %}
+                                <td>
+                                    {{ value }}
+                                </td>
+                            {% endif%}
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4>Collection empty.</h4>
+            <p>This system does not seek to store downloaded content! However collections may be manually created for demonstration purposes. Refer to documentation for further information.</p>
+        {% endif %}
     </div>
+
 {% endblock content %}

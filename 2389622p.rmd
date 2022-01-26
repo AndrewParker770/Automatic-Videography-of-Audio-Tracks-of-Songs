@@ -222,4 +222,10 @@
 
 * 2 hrs - Fully implemented alignment tool for django webframe
 
+# 25 January 2022
+
+* 0.5 hrs - Writing documentation
+
+* 3 hrs - Implemented collections tab for django and debugging
+
 

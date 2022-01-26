@@ -44,6 +44,16 @@ python manage.py runserver
 Terminal output should prompt to open browser and access [local host.](http://127.0.0.1:8000/)
 
 
+### Collections
+
+The system may store videos internally during the video generation process, however these videos (as well as any file made during its creation) are deleted once another video is generated. This is in part to prevent excessive files being stored, however this is mainly due to the issue of storing vidoes which are based on copyrighted content such as much music is.
+
+However, collections for demonstartion purposes 
+
+[COllections can be made this way]
+
+If a collection has been provided
+
 ### Citations
 
 [C. Gupta, E. Yılmaz and H. Li, "Automatic Lyrics Alignment and Transcription in Polyphonic Music: Does Background Music Help?," ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Barcelona, Spain, 2020, pp. 496-500, doi: 10.1109/ICASSP40776.2020.9054567.](https://ieeexplore.ieee.org/document/9054567)

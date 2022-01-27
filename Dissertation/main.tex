@@ -5,7 +5,12 @@
 % Please let me know if you find any errors or wish to suggest improvements
 
 \documentclass[12pt,titlepage,oneside]{book}
-\usepackage[T1]{fontenc} % modern encoding
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
 % Comment out the next three lines of LaTeX if you wish to use Computer Modern fonts
 %   (this is the default for LaTeX)
 % Make sure that your TeX installation can produce good pdf with these fonts.
@@ -42,7 +47,7 @@ University of Glasgow\\
 \\
 \vspace{1cm}
 % Insert month and year of date deposited with library for final version
-January 2022
+March 2022
 \end{titlepage}
 \frontmatter  % Turn off chapter numbering, use roman page numbers
 \include{abstract}
@@ -61,11 +66,10 @@ January 2022
 \include{Dissertation/conclusion}
 % and the other chapters
 \appendix
-\include{derivation}
 
-\backmatter  % Turn off chapter numbering
-% I assume that the bibliography is assembled by hand.
-% Change the file if you use bibtex or something like that.
-\include{bibliography}
+\backmatter  
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}

@@ -146,14 +146,3 @@ def getLyricTimings(frame_list, fps):
         timings.append(time)
     
     return timings
-
-
-    
-
-
-    #e.g. {770: ['chance']}
-
-    time = {'key': key, 'start': section_start + (duration_step * counter), 'duration': duration_step}
-    counter += 1
-    timings.append(time)
-    return timings

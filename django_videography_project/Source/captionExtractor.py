@@ -64,6 +64,11 @@ def flattenTranscript(transcript):
     return wholeTranscript
 
 def returnKeyWords(text, numOfKeywords):
+
+    #TODO: find a way to exclude song stop words like : La, yeah, oh
+
+    #TODO: key word files must not contain "?" ... turns out most of them
+    #TODO: for key words use a hyphen instead
     
     language = "en"
     max_ngram_size = 2
@@ -95,6 +100,7 @@ def getLyricTranscript(keywords, fps):
         possible_keys = []
         for word in keywords:
             key_list = word.split(" ")
+            #TODO: need to make sure elelement is kwyword and doesn't just contain one
             #list comp each word of key statement is in text
             element_list = [element for element in key_list if element in text]
             if len(key_list) == len(element_list):

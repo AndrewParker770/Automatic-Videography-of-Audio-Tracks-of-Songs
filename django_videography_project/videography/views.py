@@ -89,7 +89,7 @@ def index(request):
             trueYoutubeID = getID(youtubeUrl)
 
             # for ease of creating files to be kept for the collection tab
-            COLLECT_JSON = False
+            COLLECT_JSON = True
             if COLLECT_JSON: 
                 createCollectionJSON(songName, artistName, trueYoutubeID, aliasYoutubeID)
 
@@ -146,7 +146,9 @@ def index(request):
                     getGoogleImage(keywords)
 
                     #generate alignment through selenium
+                    print("Going In")
                     getSeleniumAlign(aliasYoutubeID)
+                    print("Coiming Out")
 
                     #keep getting alignment from website
                     counter = 0

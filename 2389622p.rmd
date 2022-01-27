@@ -228,4 +228,14 @@
 
 * 3 hrs - Implemented collections tab for django and debugging
 
+# 26 January 2022
+
+* 3 hrs - Fully implementing lyric video logic and integration
+
+* 2 hrs - Added ability to add 'buffer' to forced alignment to make images appear longer.
+
+# 27 January 2022
+
+* 1 hrs - Meeting and meeting prep
+
 

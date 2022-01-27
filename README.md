@@ -4,7 +4,8 @@ This project is meant to showcase the current bounds of Information Retrieval(IR
 
 ### Prerequisite
 
-* [Python v3.x](https://www.python.org/)
+* [Python v3.8.12](https://www.python.org/)
+    * Created and tested in this version
 * [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
     * Add
     * Add 
@@ -34,12 +35,11 @@ python -m venv venv
 ```bash
 pip install -r requirements.txt
 ```
-
 ```bash
 cd django_videography_project
-
+```
+```bash
 python manage.py runserver
-
 ```
 Terminal output should prompt to open browser and access [local host.](http://127.0.0.1:8000/)
 
@@ -58,12 +58,6 @@ If a collection has been provided
 
 [C. Gupta, E. Yılmaz and H. Li, "Automatic Lyrics Alignment and Transcription in Polyphonic Music: Does Background Music Help?," ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Barcelona, Spain, 2020, pp. 496-500, doi: 10.1109/ICASSP40776.2020.9054567.](https://ieeexplore.ieee.org/document/9054567)
 
-___
+#### Project Information
 
-#### About me
-
-Name: Andrew Parker
-
-E-mail: 2389622p@student.gla.ac.uk
-
-4th Year Computer Science Student at The University of Glasgow
+Created by: Andrew Parker & Debasis Ganguly

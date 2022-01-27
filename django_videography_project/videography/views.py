@@ -54,6 +54,7 @@ def index(request):
             return render(request, 'videography/index.html', context=context_dict)
         
         if form.is_valid():
+            createStaticFiles()
             deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/imgs', 'videography/static/videos', 'Source/FrameFiles'])
 
             # get information from forms
@@ -88,7 +89,7 @@ def index(request):
             trueYoutubeID = getID(youtubeUrl)
 
             # for ease of creating files to be kept for the collection tab
-            COLLECT_JSON = True
+            COLLECT_JSON = False
             if COLLECT_JSON: 
                 createCollectionJSON(songName, artistName, trueYoutubeID, aliasYoutubeID)
 
@@ -147,17 +148,27 @@ def index(request):
                     #generate alignment through selenium
                     getSeleniumAlign(aliasYoutubeID)
 
-                    #keep getting alignment from website until it is correct
-                    while (validateJson(aliasYoutubeID)):
-                        getSeleniumAlign(aliasYoutubeID)
+                    #keep getting alignment from website
+                    counter = 0
+                    while counter < 5:
+                        invalid = validateJson(aliasYoutubeID)
+                        if invalid:
+                            getSeleniumAlign(aliasYoutubeID)
+                            counter += 1
+                        else:
+                            break
+
+                    if counter == 5 and not validateJson(aliasYoutubeID):
+                        link_form = LinkForm()
+                        artist_form = ArtistForm()
+                        context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'error': 'Forced alignment has failed'}
+                        return render(request, 'videography/index.html', context=context_dict)
                     
                     # get youtube video audio
                     audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
                     song_duration = audioclip.duration
 
-
-                    #TODO: allow adding a buffer
-                    timings = trimTimings(keywords)
+                    timings = trimTimings(keywords, song_duration, buffer=1)
                     compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
                     return redirect(f'/videography/video/{trueYoutubeID}')

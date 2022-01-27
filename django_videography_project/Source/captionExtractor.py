@@ -12,13 +12,31 @@ def getKeywords(youtubeID):
     #get all lines from .txt file
     with open(f"Source/TextFiles/{youtubeID}.txt", "r") as f:
         lines = f.read().splitlines() 
-        
+    
+    
     #find a single key word in each lne
     keywords = set([])
     for line in lines:
-        result = returnKeyWords(line, 1)
-        if result != []:
-            keywords.add(result[0][0].lower())
+        spilt_line = line.lower().split(" ")
+        results = returnKeyWords(line, 2)
+        if results != []:
+            for entry in results:
+                word = entry[0]
+                word_list = word.lower().split(" ")
+
+                contains_list = []
+                for elem in word_list:
+                    contains_list.append(elem in spilt_line)
+                
+                if contains_list == [True, False]:
+                    i = spilt_line.index(word_list[0])
+                    word = " ".join([spilt_line[i], spilt_line[i+1]])
+                elif contains_list == [False, True]:
+                    i = spilt_line.index(word_list[1])
+                    word = " ".join([spilt_line[i-1], spilt_line[i]])
+                    
+                keywords.add(word.lower())
+
     return keywords
 
 

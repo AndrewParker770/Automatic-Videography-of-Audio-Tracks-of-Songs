@@ -18,6 +18,8 @@ def extractLyrics(artist_name, song_name, youtubeID):
     song = artist.song(song_name)
     lyrics = song.lyrics
 
+    lyrics = lyrics[lyrics.find('\n'):]
+
     # check for then remove footer section added by genius (sometimes)
     lyrics = re.sub(r"[0-9]{2}EmbedShare URLCopyEmbedCopy", "",lyrics)
 

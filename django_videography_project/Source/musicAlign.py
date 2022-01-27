@@ -113,7 +113,7 @@ def validateJson(youtubeID):
     # if there is an unkown word then selenium has returned wrong transcipt
     return unknown_word_found
 
-def trimTimings(keywords):
+def trimTimings(keywords, song_duration, buffer):
 
     #get all timings
     text_path = os.path.join(os.getcwd(), "Source", "TextFiles")
@@ -140,5 +140,42 @@ def trimTimings(keywords):
                     timed_json.append(element)
 
     timed_json.sort(key=lambda entry: entry['start'])
+
+    # add buffer to prolong image
+    previous_start_end = None
+
+    for i in range(len(timed_json)):
+        start = timed_json[i]['start']
+        end = timed_json[i]['start'] + timed_json[i]['duration']
+
+        possible_start = start - buffer
+        if i == 0:
+            #if first must only not be befor zero
+            if possible_start < 0:
+                possible_start = 0
+                timed_json[i]['start'] = possible_start
+            else:
+                timed_json[i]['start'] = possible_start
+        else:
+            # if not first then must also not conlict with previous
+            previous_end = timed_json[i-1]['start'] + timed_json[i-1]['duration']
+            if possible_start > 0 or possible_start > previous_end:
+                timed_json[i]['start'] = possible_start
+
+        if (i+1) < len(timed_json):
+            # need to look at next one not to over-lap
+            next_start = timed_json[i+1]['start'] - buffer
+            possible_end = end + buffer
+            if possible_end < next_start:
+                timed_json[i]['duration'] = possible_end - possible_start 
+            else:
+                timed_json[i]['duration'] = next_start - possible_start
+        else:
+            #no next one, check doesn't conflict with end of song
+            if possible_end < song_duration:
+                timed_json[i]['duration'] = possible_start - possible_end
+            else:
+                timed_json[i]['duration'] = possible_start - song_duration
+
     return timed_json
     

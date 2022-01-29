@@ -3,29 +3,35 @@
 {% block content %}
     <br>
     <div class="container">
-        <form action="/videography/feedback/" method="post">
-            {% csrf_token %}
-            <div class='container col-md-6'>
-                <div>
-                    {% if message != None %}
+        <div class='container col-md-6'>
+            <h3>Provide Feedback:</h3>
+            {% if found == True %}
+                <form action="/videography/feedback/" method="post">
+                    {% csrf_token %}
+                        <div>
+                            {% if message != None %}
+                                <br>
+                                <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
+                            {% endif %} 
+                        </div> 
+                        {{ form }}
+                        <b-form-group label="Radios using options" v-slot="{ ariaDescribedby }">
+                            <b-form-radio-group
+                                id="radio-group-1"
+                                v-model="selected"
+                                :options="options"
+                                :aria-describedby="ariaDescribedby"
+                                name="radio-options">
+                            </b-form-radio-group>
+                        </b-form-group>
                         <br>
-                        <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
-                    {% endif %} 
-                </div> 
-                {{ form }}
-                <b-form-group label="Radios using options" v-slot="{ ariaDescribedby }">
-                    <b-form-radio-group
-                        id="radio-group-1"
-                        v-model="selected"
-                        :options="options"
-                        :aria-describedby="ariaDescribedby"
-                        name="radio-options">
-                    </b-form-radio-group>
-                  </b-form-group>
-                <br>
-                <input type="submit" value="Submit" id='button1'>
+                        <input type="submit" value="Submit" id='button1'>
+                </form>
             </div>
-        </form>
+            {% else %}
+                <br>
+                <p class="text-danger">Feedback function is disabled as Firebase SDK is not loaded. Refer to documentation on how to load an SDK.</p>
+            {% endif %}
     </div>
 
     <script>

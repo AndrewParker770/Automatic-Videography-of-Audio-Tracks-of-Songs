@@ -22,6 +22,7 @@ from Source.musicAlign import validateJson
 from Source.musicAlign import trimTimings
 
 from Source.firebase import sendToDatabase
+from Source.firebase import initialiseSDK
 
 from .forms import LinkForm
 from .forms import ArtistForm
@@ -238,8 +239,6 @@ def video(request, pk):
         else:
             video_file_path = None
     
-    print(video_file_path)
-    print(f'{file_name}')
 
     context_dict = {'currentpage': 'Video', 'video_file_path': video_file_path}
     return render(request, 'videography/video.html', context=context_dict)
@@ -260,14 +259,16 @@ def collection(request):
     return render(request, 'videography/collection.html', context=context_dict)
 
 def feedback(request):
+    SDK_FOUND, sdk_path = initialiseSDK()
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
             sendToDatabase(form.cleaned_data)
-            form = FeedbackForm()
-            context_dict = {'currentpage': 'Feedback', 'form': form, 'message': 'success'}
-            return render(request, 'videography/feedback.html', context=context_dict)
+            link_form = LinkForm()
+            artist_form = ArtistForm()
+            context_dict = {'currentpage': 'Index', 'link_form': link_form,'artist_form':artist_form, 'message': "Submittion complete. Thank you for providing feedback."}
+            return render(request, 'videography/index.html', context=context_dict)
     else:
         form = FeedbackForm()
-        context_dict = {'currentpage': 'Feedback', 'form': form}
+        context_dict = {'currentpage': 'Feedback', 'form': form, 'found': SDK_FOUND}
         return render(request, 'videography/feedback.html', context=context_dict)

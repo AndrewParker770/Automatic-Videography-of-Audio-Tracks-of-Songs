@@ -1,11 +1,27 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import os
 
-cred = credentials.Certificate("Source/automatic-videography-firebase-adminsdk-gxt1y-e27588c9f4.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL' : 'https://automatic-videography-default-rtdb.firebaseio.com/'
-})
+
+def initialiseSDK():
+    sdk_path = os.path.join(os.getcwd(), "Source", "SDKFile")
+    SDK_FOUND = False
+    for file in os.listdir(sdk_path):
+        if file.endswith(".json"):
+            SDK_FOUND = True
+            sdk_path = os.path.join(sdk_path, file)
+    
+    return SDK_FOUND, sdk_path
+
+
+SDK_FOUND, sdk_path = initialiseSDK()
+if SDK_FOUND:
+    cred = credentials.Certificate(sdk_path)
+    firebase_admin.initialize_app(cred, {
+        'databaseURL' : 'https://automatic-videography-default-rtdb.firebaseio.com/'
+    })
+
 
 def sendToDatabase(dataDict):
     ref = db.reference('main/')

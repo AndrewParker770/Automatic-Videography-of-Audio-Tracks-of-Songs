@@ -23,6 +23,10 @@
                             <br>
                             <p id=errorid class="text-danger">Error: {{error}}. Please Try Again.</p>
                         {% endif %} 
+                        {% if message != None %}
+                            <br>
+                            <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
+                        {% endif %}
                     </div> 
                     <div id=radiodiv>
                         <div class="form-check">
@@ -68,67 +72,75 @@
 
     <script>
 
-        const spinner = document.getElementById('spinner1');
-        const navigationBar = document.getElementById('nav');
-        const index = document.getElementById('index-body');
+    const spinner = document.getElementById('spinner1');
+    const navigationBar = document.getElementById('nav');
+    const index = document.getElementById('index-body');
 
-        function unloadFunction(){
-            index.classList.remove('no-display')
-            navigationBar.classList.remove('no-display')
-            spinner.classList.add('no-display')
+    function unloadFunction(){
+        index.classList.remove('no-display')
+        navigationBar.classList.remove('no-display')
+        spinner.classList.add('no-display')
 
-            formDiv.innerHTML = ""
+        formDiv.innerHTML = ""
+        formDiv.innerHTML = link_html
+
+        radiodiv.innerHTML = ""
+        radiodiv.innerHTML = radio_temp
+    }
+
+
+
+
+    var formType = 'link';
+
+    const artist_html = document.getElementById('artistId').innerHTML;
+    const link_html = document.getElementById('linkId').innerHTML;
+
+    document.getElementById('artistId').remove();
+    document.getElementById('linkId').remove();
+
+    const formDiv = document.getElementById('formid');
+    formDiv.innerHTML = artist_html;
+
+    const radio_temp = document.getElementById('radiodiv');
+
+    const error = document.getElementById('errorid')
+    if (error != null){
+        const myTimeout = setTimeout(function(){
+            error.remove()
+        }, 5000);
+    };
+
+    function submittionFunciton(){
+        index.classList.add('no-display')
+        navigationBar.classList.add('no-display')
+        spinner.classList.remove('no-display')
+    }
+
+    function radioFunc(name){
+
+        const artist = document.getElementById('artistId')
+        const link = document.getElementById('linkId')
+
+        if (name == 'captions' || name == 'spoken'){
             formDiv.innerHTML = link_html
+            
+            formType = 'list'
+            
+        }else if (name == 'lyrics' || name == 'music'){
+            formDiv.innerHTML = artist_html
 
-            radiodiv.innerHTML = ""
-            radiodiv.innerHTML = radio_temp
+            formType = 'artist'
         }
+    };
 
-
-
-
-        var formType = 'link';
-
-        const artist_html = document.getElementById('artistId').innerHTML;
-        const link_html = document.getElementById('linkId').innerHTML;
-
-        document.getElementById('artistId').remove();
-        document.getElementById('linkId').remove();
-
-        const formDiv = document.getElementById('formid');
-        formDiv.innerHTML = artist_html;
-
-        const radio_temp = document.getElementById('radiodiv');
-
-        const error = document.getElementById('errorid')
-        if (error != null){
-            const myTimeout = setTimeout(function(){
-                error.remove()
-            }, 5000);
-        };
-
-        function submittionFunciton(){
-            index.classList.add('no-display')
-            navigationBar.classList.add('no-display')
-            spinner.classList.remove('no-display')
-        }
-
-        function radioFunc(name){
-
-            const artist = document.getElementById('artistId')
-            const link = document.getElementById('linkId')
-
-            if (name == 'captions' || name == 'spoken'){
-                formDiv.innerHTML = link_html
-                
-                formType = 'list'
-                
-            }else if (name == 'lyrics' || name == 'music'){
-                formDiv.innerHTML = artist_html
-
-                formType = 'artist'
-            }
-        };
+    const message = document.getElementById('messageid')
+    if (message != null){
+        const myTimeout = setTimeout(function(){
+            message.remove()
+        }, 5000);
+    };
+    
     </script>
 
 {% endblock content %}

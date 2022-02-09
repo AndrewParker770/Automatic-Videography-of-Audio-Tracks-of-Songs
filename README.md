@@ -10,8 +10,12 @@ This project is meant to showcase the current bounds of Information Retrieval(IR
     * Add
     * Add 
 * [Chrome](https://support.google.com/chrome/answer/95346?hl=en-GB&co=GENIE.Platform%3DDesktop)
+    * Must be the most up to date version avalable.
+        1. To check, open chrome and open More.
+        2. Then go to Help, open About Google Chrome.
+        3. Under About Chrome, check if there is an update available and download it if so.
 * [FFmpeg](https://www.ffmpeg.org/)
-    * Should be able to run on command line within virtual environment outlined below
+    * Should be able to run on command line within virtual environment outlined below.
 
 ### Installation and Running
 

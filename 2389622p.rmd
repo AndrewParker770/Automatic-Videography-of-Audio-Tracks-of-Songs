@@ -239,3 +239,16 @@
 * 1 hrs - Meeting and meeting prep
 
 
+
+
+
+
+
+
+
+
+
+
+# ADD documentation about PyTube or Youtube_dl failures
+
+

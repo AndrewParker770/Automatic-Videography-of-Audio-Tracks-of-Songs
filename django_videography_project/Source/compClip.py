@@ -81,7 +81,7 @@ def compileTimings(timings, song_duration, youtubeID, audio_clip):
 
         #make a single word 
         words = word.split(" ")
-        filename = "_".join(words)
+        filename = "-".join(words)
 
         #create random img clip from corresponding image folder
         img_duration = entry['duration']

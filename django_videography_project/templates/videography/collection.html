@@ -19,7 +19,7 @@
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         {% for key, value in file.items %}
-                            {% if key != 'aliasYoutubeID'%}
+                            {% if key != 'timings'%}
                                 {% if key == 'youtubeID'%}
                                     <td>
                                         <a href="/videography/video/{{value}}">View Video</a>

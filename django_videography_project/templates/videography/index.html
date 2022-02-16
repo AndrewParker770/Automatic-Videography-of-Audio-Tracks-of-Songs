@@ -13,50 +13,53 @@
         
     <div id='index-body'>
         <div class="form-group">
-            <form action="/videography/" method="post" onsubmit="submittionFunciton()">
-                {% csrf_token %}
                 <div class='container col-md-6'>
                     <br>
                     <h3>Complete the form below:</h3>
                     <div>
                         {% if error != None %}
                             <br>
-                            <p id=errorid class="text-danger">Error: {{error}}. Please Try Again.</p>
+                            <p id=errorid class="text-danger">Error: {{error}}</p>
                         {% endif %} 
                         {% if message != None %}
                             <br>
                             <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
                         {% endif %}
                     </div> 
-                    <div id=radiodiv>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2"  value="music" checked>
-                            <label class="form-check-label" for="flexRadioDefault4">
-                                Alignment Tool (Music)
-                            </label>
+                    <form action="/videography/" method="post" onsubmit="submittionFunciton()">
+                        {% csrf_token %}
+                        <div id=radiodiv>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2"  value="music" checked>
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                    Alignment Tool (Music)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" value="captions">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    YouTube Captions
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" value="lyrics">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Lyric Video Analysis
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" value="captions">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                YouTube Captions
-                            </label>
+                        <br>
+                        <div id=formid>
+                            <div id=artistId>
+                                {{ artist_form.as_p }}
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" value="lyrics">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Lyric Video Analysis
-                            </label>
-                        </div>
-                    </div>
+                        <input type="submit" value="Submit" id='button1'>
+                    </form>
                     <br>
-                    <div id=formid>
-                        <div id=artistId>
-                            {{ artist_form.as_p }}
-                        </div>
-                    </div>
-                    <input type="submit" value="Submit" id='button1'>
+                    <p>Check out <a href="https://genius.com/" target="_blank" rel="noopener noreferrer">Genius.com</a> if unsure of artist or song name.</p>
                 </div>
-            </form>
+
             
         </div>
     </div>
@@ -77,7 +80,7 @@
     if (error != null){
         const myTimeout = setTimeout(function(){
             error.remove()
-        }, 5000);
+        }, 20000);
     };
 
     function submittionFunciton(){

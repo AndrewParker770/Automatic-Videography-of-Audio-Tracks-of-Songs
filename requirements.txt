@@ -78,7 +78,7 @@ python-resize-image==1.1.19
 pytube==11.0.2
 pytube3==9.6.4
 pytz==2021.3
-regex==2021.11.9
+regex==2022.1.18
 requests==2.26.0
 resampy==0.2.2
 rsa==4.7.2
@@ -106,6 +106,6 @@ wget==3.2
 wikipedia==1.4.0
 wsproto==1.0.0
 yake==0.4.8
-youtube-dl==2021.6.6
+youtube-dl==2021.12.17
 youtube-transcript-api==0.4.1
 youtube.py==2.1.0

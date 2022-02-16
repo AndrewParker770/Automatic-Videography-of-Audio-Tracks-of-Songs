@@ -35,10 +35,26 @@ import re
 import json
 
 
-
 def index(request):
-    if request.method == 'POST':
+    # create these if not present
+    createStaticFiles()
 
+    #IF new process begins signal to stop this one
+    STOP_PROCESSING = False
+    stop_name = str(time.time()).split(".")[0] + ".txt"
+    static_path = os.path.join(os.getcwd(),"videography", "static")
+    stop_file_path = os.path.join(static_path, stop_name)
+
+    #delete previous stop file
+    files_in_static = os.listdir(static_path)
+    for text_file in [file for file in files_in_static if file.endswith(".txt")]:
+        os.remove(os.path.join(static_path, text_file))
+
+    #create the new stop file
+    with open(stop_file_path, 'w'):
+        pass
+
+    if request.method == 'POST':
         #determine which form was submitted
         method = request.POST['operation']
             
@@ -46,7 +62,6 @@ def index(request):
         form_type = 'artist'
         
         if form.is_valid():
-            createStaticFiles()
             deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/imgs', 'videography/static/videos', 'Source/FrameFiles'])
 
             # get information from forms
@@ -60,12 +75,12 @@ def index(request):
             if index == -1:
                 #url not in https style
                 artist_form = ArtistForm()
-                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'YouTube Link wrong. E.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'YouTube Link in the wrong format. Please try again with link similar to this example: https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
                 return render(request, 'videography/index.html', context=context_dict)
             elif index > 0:
                 #does not begin with https
                 artist_form = ArtistForm()
-                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'YouTube Link wrong. E.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'YouTube Link in the wrong format. Please try again with link similar to this example: https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
                 return render(request, 'videography/index.html', context=context_dict)
         
 
@@ -77,14 +92,13 @@ def index(request):
             if not strip_success[0] and strip_success[1] == 'Video':
                 # This is a failure as lyrics require video so return to homepage
                 artist_form = ArtistForm()
-                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'The video required for this metod could not extracted. Please try again or use a different method'}
+                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'The video required for this method could not extracted. Please try again or use a different method'}
                 return render(request, 'videography/index.html', context=context_dict)
             
             elif not strip_success[0] and strip_success[1] == 'Audio':
                 # This is a failure as lyrics require video so return to homepage
-                print(strip_success)
                 artist_form = ArtistForm()
-                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Could not extract audio from YouTube video,  Please try again or use a different method'}
+                context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Could not extract audio from YouTube video. Please try again or use a different method'}
                 return render(request, 'videography/index.html', context=context_dict)
             
 
@@ -98,12 +112,12 @@ def index(request):
                     if not file_create:
                         # file was not created
                         artist_form = ArtistForm()
-                        context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values'}
+                        context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values are correct and try again.'}
                         return render(request, 'videography/index.html', context=context_dict)
                 except:
                     # error occured - genius lyrics could not be found
                     artist_form = ArtistForm()
-                    context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values'}
+                    context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values are correct and try again.'}
                     return render(request, 'videography/index.html', context=context_dict)
 
 
@@ -117,23 +131,33 @@ def index(request):
                 keywords = getKeywords(aliasYoutubeID)
 
                 # get images to use in video
-                getGoogleImage(keywords)
+                for word in keywords:
+                    #used to interupt processes
+                    if os.path.exists(stop_file_path):
+                        getGoogleImage(word)
+                    else:
+                        STOP_PROCESSING = True
+                        break
 
-                # get a transcript from lyrics (will need to pass keywords)
-                frame_list = getLyricTranscript(keywords, fps)
-                timings = getLyricTimings(frame_list, fps)
+                if not STOP_PROCESSING:
+                    # get a transcript from lyrics (will need to pass keywords)
+                    frame_list = getLyricTranscript(keywords, fps)
+                    timings = getLyricTimings(frame_list, fps)
 
-                # get youtube video audio
-                audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
-                song_duration = audioclip.duration
+                    # get youtube video audio
+                    audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
+                    song_duration = audioclip.duration
 
-                #create video
-                compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+                    #create video
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
-                if COLLECT_JSON: 
-                    createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
+                    if COLLECT_JSON: 
+                        createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
 
-                return redirect(f'/videography/video/{trueYoutubeID}')
+                    return redirect(f'/videography/video/{trueYoutubeID}')
+                else:
+                    # don't return anything as processing not completed
+                    pass
 
 
             # 'music'
@@ -142,69 +166,91 @@ def index(request):
                 #get key words from lyrics text file created above
                 keywords = getKeywords(aliasYoutubeID)
 
-                # get images to use in video
-                getGoogleImage(keywords)
-
                 #generate alignment through selenium
-                print("Going In")
-                getSeleniumAlign(aliasYoutubeID)
-                print("Coiming Out")
-
-                #keep getting alignment from website
-                counter = 0
-                while counter < 5:
-                    invalid = validateJson(aliasYoutubeID)
-                    if invalid:
-                        getSeleniumAlign(aliasYoutubeID)
-                        counter += 1
-                    else:
-                        break
-
-                if counter == 5 and not validateJson(aliasYoutubeID):
+                success = getSeleniumAlign(aliasYoutubeID)
+                if not success:
                     artist_form = ArtistForm()
-                    context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Forced alignment has failed'}
+                    context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Selenium driver could not initalise. Check that Chrome on user device is up-to-date'}
                     return render(request, 'videography/index.html', context=context_dict)
                 
-                # get youtube video audio
-                if strip_success[1] == 'Video':
-                    audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
-                elif strip_success[1] == 'Audio':
-                    audioclip = AudioFileClip(f"Source/AudioFiles/{aliasYoutubeID}.mp3")
-                song_duration = audioclip.duration
+                
+                if validateJson(aliasYoutubeID):
+                    artist_form = ArtistForm()
+                    context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Forced alignment values have failed to be fecthed. Please try again.'}
+                    return render(request, 'videography/index.html', context=context_dict)
+                
+                # get images to use in video
+                for word in keywords:
+                    #used to interupt processes
+                    if os.path.exists(stop_file_path):
+                        getGoogleImage(word)
+                    else:
+                        STOP_PROCESSING = True
+                        break
 
-                timings = trimTimings(keywords, song_duration, buffer=1)
-                compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+                if not STOP_PROCESSING:
+                    # get youtube video audio
+                    if strip_success[1] == 'Video':
+                        audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
+                    elif strip_success[1] == 'Audio':
+                        audioclip = AudioFileClip(f"Source/AudioFiles/{aliasYoutubeID}.mp3")
+                    song_duration = audioclip.duration
 
-                if COLLECT_JSON: 
-                    createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
+                    if os.path.exists(stop_file_path):
+                        timings = trimTimings(keywords, song_duration, buffer=1)
+                        compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
-                return redirect(f'/videography/video/{trueYoutubeID}')
+                        if COLLECT_JSON: 
+                            createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
 
+                        return redirect(f'/videography/video/{trueYoutubeID}')
+                    else:
+                        # don't return anything as processing not completed
+                        pass 
+                else: 
+                    # don't return anything as processing not completed
+                    pass
 
             elif method == 'captions':
                 success, transcript_dict = getCaptions(trueYoutubeID, aliasYoutubeID)
+                if not success:
+                    artist_form = ArtistForm()
+                    context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Captions could not be extracted. Check that referenced YouTube video has captions and try again.'}
+                    return render(request, 'videography/index.html', context=context_dict)
+
+
                 keywords = getKeywords(aliasYoutubeID)
 
                 # get images to use in video
-                getGoogleImage(keywords)
+                for word in keywords:
+                    #used to interupt processes
+                    if os.path.exists(stop_file_path):
+                        getGoogleImage(word)
+                    else:
+                        STOP_PROCESSING = True
+                        break
 
-                # get youtube video audio
-                if strip_success[1] == 'Video':
-                    audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
-                elif strip_success[1] == 'Audio':
-                    audioclip = AudioFileClip(f"Source/AudioFiles/{aliasYoutubeID}.mp3")
-                song_duration = audioclip.duration
+                if not STOP_PROCESSING:
 
-                #create video
-                #TODO: make a better estimation of where the words are
-                timings = getTimings(keywords, transcript_dict)
-                compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+                    # get youtube video audio
+                    if strip_success[1] == 'Video':
+                        audioclip = VideoFileClip(f"Source/VideoFiles/{aliasYoutubeID}.mp4").audio
+                    elif strip_success[1] == 'Audio':
+                        audioclip = AudioFileClip(f"Source/AudioFiles/{aliasYoutubeID}.mp3")
+                    song_duration = audioclip.duration
 
-                if COLLECT_JSON: 
-                    createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
+                    #create video
+                    #TODO: make a better estimation of where the words are
+                    timings = getTimings(keywords, transcript_dict)
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 
-                return redirect(f'/videography/video/{trueYoutubeID}')
+                    if COLLECT_JSON: 
+                        createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
 
+                    return redirect(f'/videography/video/{trueYoutubeID}')
+                else:
+                    # don't return anything as processing not completed
+                    pass
     else:
         # This is the GET request for the page
         artist_form = ArtistForm()
@@ -253,9 +299,11 @@ def feedback(request):
         if form.is_valid():
             sendToDatabase(form.cleaned_data)
             artist_form = ArtistForm()
+            CURRENT_PAGE = "Index"
             context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'message': "Submittion complete. Thank you for providing feedback."}
             return render(request, 'videography/index.html', context=context_dict)
     else:
         form = FeedbackForm()
+        CURRENT_PAGE = "Feedback"
         context_dict = {'currentpage': 'Feedback', 'form': form, 'found': SDK_FOUND}
         return render(request, 'videography/feedback.html', context=context_dict)

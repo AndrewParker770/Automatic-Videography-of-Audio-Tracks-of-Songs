@@ -45,13 +45,17 @@ def getSeleniumAlign(youtubeID):
         os.remove(timings_path)
 
     # open web browser
-    option = webdriver.ChromeOptions()
-    option.add_argument('headless')
-    driver = webdriver.Chrome(driver_path, options=option)
-    url = "https://autolyrixalign.hltnus.org/"
-    driver.get(url)
+    try:
+        option = webdriver.ChromeOptions()
+        option.add_argument('headless')
+        driver = webdriver.Chrome(driver_path, options=option)
+        url = "https://autolyrixalign.hltnus.org/"
+        driver.get(url)
 
-    driver.implicitly_wait(6)
+        driver.implicitly_wait(6)
+    except:
+        success = False
+        return success
 
     #get appropriate form elements
     form = driver.find_elements_by_class_name("audioForm")[0]
@@ -91,6 +95,9 @@ def getSeleniumAlign(youtubeID):
 
     #close driver
     driver.quit()
+
+    success = True
+    return success
 
 
 def validateJson(youtubeID):

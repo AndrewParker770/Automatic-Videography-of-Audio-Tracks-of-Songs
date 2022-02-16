@@ -35,16 +35,52 @@ def getKeywords(youtubeID):
                     i = spilt_line.index(word_list[1])
                     word = " ".join([spilt_line[i-1], spilt_line[i]])
                     
+                word = word.strip('!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~')
                 keywords.add(word.lower())
 
     return keywords
 
+def getManual(youtubeID):
+    transcript_list = YouTubeTranscriptApi.list_transcripts(youtubeID)
+    try:
+        transcript = transcript_list.find_manually_created_transcript(['en'])
+        timing_list = transcript.fetch()
+        return timing_list
+    except:
+        return None 
+
+def getGenerated(youtubeID):
+    transcript_list = YouTubeTranscriptApi.list_transcripts(youtubeID)
+    try:
+        transcript = transcript_list.find_generated_transcript(['en'])
+        timing_list = transcript.fetch()
+
+        timing_list.sort(key=lambda n: n['start'])
+            
+        dict_length = len(timing_list)
+        for i in range(dict_length):
+            if i != (dict_length - 1):
+                if timing_list[i]['start'] + timing_list[i]['duration'] > timing_list[i+1]['start']:
+                    timing_list[i]['duartion'] = timing_list[i+1]['start'] - timing_list[i]['start']
+        return timing_list
+    except:
+        return None
 
 
 def getCaptions(youtubeID, fakeYoutubeID):
-    transcript_dict = YouTubeTranscriptApi.get_transcripts([youtubeID], languages=['en'])
+
+    #check the different methods of retrieval
+    transcript_dict = getManual(youtubeID)
+    if transcript_dict == None:
+        transcript_dict = getGenerated(youtubeID)
+
+    #if None then retrival of captions has failed 
+    if transcript_dict == None:
+        return False, []
+    
+
     with open(f"Source/TextFiles/{fakeYoutubeID}.txt", "w") as f:
-        for line in transcript_dict[0][youtubeID]:
+        for line in transcript_dict:
             raw_line = line['text']
             #remove non_ASCII chars
             encoded_text = raw_line.encode("ascii", "ignore")
@@ -54,7 +90,7 @@ def getCaptions(youtubeID, fakeYoutubeID):
             if text[-1] != '\n':
                 text += '\n'
             f.write(text)
-    return os.path.exists(f"Source/TextFiles/{fakeYoutubeID}.txt"), transcript_dict[0][youtubeID]
+    return os.path.exists(f"Source/TextFiles/{fakeYoutubeID}.txt"), transcript_dict
         
     
 def flattenTranscript(transcript):

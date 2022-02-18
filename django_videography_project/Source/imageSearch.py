@@ -49,17 +49,24 @@ def getGoogleImage(word):
 
 
 def deleteFiles(folders):
+    endings = [".txt", ".mp4", ".mp3", ".png"]
+    
     for folder in folders:
         for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Error: Unable to delete %s.' % (file_path))
-    
+            name, file_extension = os.path.splitext(filename)
+            if (file_extension in endings):
+                os.unlink(os.path.join(folder, filename))
+
+def deleteDirs(folders):
+    for folder in folders:
+        for filename in os.listdir(folder):
+            if (os.path.isdir(os.path.join(folder, filename))):
+                shutil.rmtree(os.path.join(folder, filename))
+
+
+
+
+
 def extractFrames(youtubeID):
     if not os.path.exists('Source/FrameFiles'):
         os.makedirs('Source/FrameFiles')

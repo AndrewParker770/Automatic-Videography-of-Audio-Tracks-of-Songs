@@ -10,6 +10,7 @@ import youtube_dl
 def deleteFiles(folders):
     for folder in folders:
         for filename in os.listdir(folder):
+            filenames.append(filename)
             file_path = os.path.join(folder, filename)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
@@ -19,8 +20,9 @@ def deleteFiles(folders):
             except Exception as e:
                 print(f'Error: Unable to delete {file_path}.')
 
+
 def getSongLength(youtubeID):
-    clip = VideoFileClip(f"Source/AudioFiles/{youtubeID}.wav")
+    clip = AudioFileClip(f"Source/AudioFiles/{youtubeID}.mp3")
     duration = clip.duration
     return duration
 

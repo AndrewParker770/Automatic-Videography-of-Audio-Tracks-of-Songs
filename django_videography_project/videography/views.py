@@ -46,7 +46,10 @@ def index(request):
         form_type = 'artist'
         
         if form.is_valid():
-            deleteFiles(['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/imgs', 'videography/static/videos', 'Source/FrameFiles'])
+            file_paths = ['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/videos', 'Source/FrameFiles']
+            deleteFiles(file_paths)
+            deleteDirs(['videography/static/imgs'])
+
 
             # get information from forms
             youtubeUrl = form.cleaned_data['youtube_link']

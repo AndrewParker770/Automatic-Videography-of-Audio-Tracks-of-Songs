@@ -7,7 +7,7 @@ This following repository contains a prototype automatic videography generation 
 * [Python v3.8.12](https://www.python.org/)
     * Created and tested in this version
 * [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
-    * Must install [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ```bash tesseract ``` can be invoked on the terminal.
+    * Must install [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ``` tesseract ``` can be invoked on the terminal.
 * [Chrome](https://support.google.com/chrome/answer/95346?hl=en-GB&co=GENIE.Platform%3DDesktop)
     * Must be the most up to date version avalable.
         1. To check, open chrome and open More.

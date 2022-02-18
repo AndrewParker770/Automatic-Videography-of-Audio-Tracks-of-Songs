@@ -142,10 +142,13 @@ def index(request):
                     song_duration = audioclip.duration
 
                     #create video
-                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip, COLLECT_JSON)
 
                     if COLLECT_JSON: 
                         createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
+                        # add video to collection
+
+
 
                     return redirect(f'/videography/video/{trueYoutubeID}')
                 else:
@@ -191,7 +194,7 @@ def index(request):
 
                     if os.path.exists(stop_file_path):
                         timings = trimTimings(keywords, song_duration, buffer=1)
-                        compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+                        compileTimings(timings, song_duration, aliasYoutubeID, audioclip, COLLECT_JSON)
 
                         if COLLECT_JSON: 
                             createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)
@@ -234,7 +237,7 @@ def index(request):
 
                     #create video
                     timings = getTimings(keywords, transcript_dict)
-                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
+                    compileTimings(timings, song_duration, aliasYoutubeID, audioclip, COLLECT_JSON)
 
                     if COLLECT_JSON: 
                         createCollectionJSON(songName, artistName, trueYoutubeID, timings, aliasYoutubeID)

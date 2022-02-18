@@ -5,6 +5,7 @@ import os
 import random
 import re
 import numpy as np
+import shutil
 
 
 def color_clip(size, duration, fps=25, color=(0,0,0), output='color.mp4'):
@@ -62,7 +63,7 @@ def getTimings(keywords, transcript):
 
     return(timings)
 
-def compileTimings(timings, song_duration, youtubeID, audio_clip):
+def compileTimings(timings, song_duration, youtubeID, audio_clip, COLLECT_JSON):
 
     #create template
     size = (200, 100)
@@ -97,6 +98,9 @@ def compileTimings(timings, song_duration, youtubeID, audio_clip):
     comp_clip = CompositeVideoClip(clips)
     comp_clip.audio = audio_clip
     comp_clip.write_videofile(f"videography/static/videos/{youtubeID}.mp4", fps=24)
+
+    if COLLECT_JSON:
+        shutil.move(f"videography/static/videos/{youtubeID}.mp4", f"videography/static/collection/{youtubeID}.mp4")
 
 
 def getLyricTimings(frame_list, fps):

@@ -5,7 +5,8 @@ This following repository contains a prototype automatic videography generation 
 ### Prerequisite
 
 * [Python v3.8.12](https://www.python.org/)
-    * Created and tested in this version
+    * Use python version equivalent to, or greater than, verison 3.8.12.
+    * Python version can be found using the ``` python --version ``` command.
 * [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
     * This will require installing [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ``` tesseract ``` can be invoked on the terminal.
         * Outlined in the link above, this should involve adding the downloaded "Tesseract-OCR" program to your path and creating an evironment variable called "TESSDATA_PREFIX" which contains the path to the "tessdata" folder in the "Tesseract-OCR" program folder.

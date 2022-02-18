@@ -136,13 +136,15 @@ def getLyricTranscript(keywords, fps):
         possible_keys = []
         for word in keywords:
             key_list = word.split(" ")
-            #TODO: need to make sure elelement is kwyword and doesn't just contain one
             #list comp each word of key statement is in text
             element_list = [element for element in key_list if element in text]
             if len(key_list) == len(element_list):
                 possible_keys.append(word)
 
-        if len(possible_keys) != 0:
+        if len(possible_keys) == 1:
             frame_list.append({i : possible_keys})
-    
+        elif len(possible_keys) > 1:
+            possible_keys.sort(key=lambda x: text.find(x))
+            frame_list.append({i : possible_keys})
+
     return frame_list

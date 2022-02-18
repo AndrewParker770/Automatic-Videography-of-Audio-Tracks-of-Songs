@@ -240,7 +240,6 @@ def index(request):
                     song_duration = audioclip.duration
 
                     #create video
-                    #TODO: make a better estimation of where the words are
                     timings = getTimings(keywords, transcript_dict)
                     compileTimings(timings, song_duration, aliasYoutubeID, audioclip)
 

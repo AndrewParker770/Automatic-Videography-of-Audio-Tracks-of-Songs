@@ -1,14 +1,13 @@
 # Automatic-Videography-of-Audio-Tracks-of-Songs
 
-This project is meant to showcase the current bounds of Information Retrieval(IR), natural language processing and tools in forced alignment
+This following repository contains a prototype automatic videography generation system. More specifically, given any YouTube video of a song, the system automatically retrieves a set of images that are related to each line of the song, and inserts these images in an automatically created video track seeking to align these images with the background audio. 
 
 ### Prerequisite
 
 * [Python v3.8.12](https://www.python.org/)
     * Created and tested in this version
 * [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
-    * Add
-    * Add 
+    * Must install [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ```bash tesseract ``` can be invoked on the terminal.
 * [Chrome](https://support.google.com/chrome/answer/95346?hl=en-GB&co=GENIE.Platform%3DDesktop)
     * Must be the most up to date version avalable.
         1. To check, open chrome and open More.

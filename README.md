@@ -64,4 +64,6 @@ If a collection has been provided
 
 #### Project Information
 
+This was created as part of a Level 4 project at the University of Glasgow.
+
 Created by: Andrew Parker & Debasis Ganguly

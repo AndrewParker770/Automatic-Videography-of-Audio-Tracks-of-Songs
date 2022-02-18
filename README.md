@@ -7,12 +7,13 @@ This following repository contains a prototype automatic videography generation 
 * [Python v3.8.12](https://www.python.org/)
     * Created and tested in this version
 * [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
-    * Must install [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ``` tesseract ``` can be invoked on the terminal.
+    * This will require installing [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ``` tesseract ``` can be invoked on the terminal.
+        * Outlined in the link above, this should involve adding the downloaded "Tesseract-OCR" program to your path and creating an evironment variable called "TESSDATA_PREFIX" which contains the path to the "tessdata" folder in the "Tesseract-OCR" program folder.
 * [Chrome](https://support.google.com/chrome/answer/95346?hl=en-GB&co=GENIE.Platform%3DDesktop)
     * Must be the most up to date version avalable.
-        1. To check, open chrome and open More.
-        2. Then go to Help, open About Google Chrome.
-        3. Under About Chrome, check if there is an update available and download it if so.
+        1. To check, open chrome and open "More", which appears as three vertical dots on the top right of the window.
+        2. Then go to "Help", open "About Google Chrome".
+        3. Under "About Chrome", check if there is an update available and download it if so.
 * [FFmpeg](https://www.ffmpeg.org/)
     * Should be able to run on command line within virtual environment outlined below.
 

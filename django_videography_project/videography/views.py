@@ -127,13 +127,16 @@ def index(request):
                 keywords = getKeywords(aliasYoutubeID)
 
                 # get images to use in video
+                valid_keywords = []
                 for word in keywords:
                     #used to interupt processes
                     if os.path.exists(stop_file_path):
-                        getGoogleImage(word)
+                        if (getGoogleImage(word)):
+                            valid_keywords.append(word)
                     else:
                         STOP_PROCESSING = True
                         break
+                keywords = valid_keywords
 
                 if not STOP_PROCESSING:
                     # get a transcript from lyrics (will need to pass keywords)
@@ -179,13 +182,16 @@ def index(request):
                     return render(request, 'videography/index.html', context=context_dict)
                 
                 # get images to use in video
+                valid_keywords = []
                 for word in keywords:
                     #used to interupt processes
                     if os.path.exists(stop_file_path):
-                        getGoogleImage(word)
+                        if (getGoogleImage(word)):
+                            valid_keywords.append(word)
                     else:
                         STOP_PROCESSING = True
                         break
+                keywords = valid_keywords
 
                 if not STOP_PROCESSING:
                     # get youtube video audio
@@ -221,13 +227,16 @@ def index(request):
                 keywords = getKeywords(aliasYoutubeID)
 
                 # get images to use in video
+                valid_keywords = []
                 for word in keywords:
                     #used to interupt processes
                     if os.path.exists(stop_file_path):
-                        getGoogleImage(word)
+                        if (getGoogleImage(word)):
+                            valid_keywords.append(word)
                     else:
                         STOP_PROCESSING = True
                         break
+                keywords = valid_keywords
 
                 if not STOP_PROCESSING:
 

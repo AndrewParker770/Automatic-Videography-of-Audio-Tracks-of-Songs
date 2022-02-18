@@ -101,10 +101,7 @@ def flattenTranscript(transcript):
 
 def returnKeyWords(text, numOfKeywords):
 
-    #TODO: find a way to exclude song stop words like : La, yeah, oh
-
     #TODO: key word files must not contain "?" ... turns out most of them
-    #TODO: for key words use a hyphen instead
     
     language = "en"
     max_ngram_size = 2

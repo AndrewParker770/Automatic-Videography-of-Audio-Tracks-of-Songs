@@ -29,8 +29,10 @@ def getGoogleImage(word):
     response = requests.get(url=url, headers=headers)
 
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    os.makedirs(f'videography/static/imgs/{file_name}')
+    try:
+        os.makedirs(f'videography/static/imgs/{file_name}')
+    except:
+        return False
 
     images = soup.find_all("img", {"class": "yWs4tf"})
 
@@ -46,6 +48,8 @@ def getGoogleImage(word):
         image = Image.open(f'videography/static/imgs/{file_name}/{counter}.jpeg')
         if len(np.array(image).shape) == 3:
             counter += 1
+    
+    return True
 
 
 def deleteFiles(folders):

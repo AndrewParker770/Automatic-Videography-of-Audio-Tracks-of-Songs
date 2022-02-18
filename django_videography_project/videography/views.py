@@ -46,7 +46,7 @@ def index(request):
         form_type = 'artist'
         
         if form.is_valid():
-            file_paths = ['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/videos', 'Source/FrameFiles']
+            file_paths = ['Source/AudioFiles', 'Source/TextFiles', 'Source/VideoFiles', 'videography/static/videos', 'Source/FrameFiles', f'{os.getcwd()}']
             deleteFiles(file_paths)
             deleteDirs(['videography/static/imgs'])
 

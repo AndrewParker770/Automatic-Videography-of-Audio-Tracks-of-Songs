@@ -3,13 +3,21 @@
 This following repository contains a prototype automatic videography generation system. More specifically, given any YouTube video of a song, the system automatically retrieves a set of images that are related to each line of the song, and inserts these images in an automatically created video track seeking to align these images with the background audio. 
 
 ### Prerequisite
+This system was created and tested using a Windows Operating system, and although the system should permit the use of other operating systems 
 
 * [Python v3.8.12](https://www.python.org/)
     * Use python version equivalent to, or greater than, verison 3.8.12.
     * Python version can be found using the ``` python --version ``` command.
-* [PyTesseract](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
-    * This will require installing [Google Tesseract OCR](https://github.com/tesseract-ocr/tesseract#installing-tesseract) such that ``` tesseract ``` can be invoked on the terminal.
-        * Outlined in the link above, this should involve adding the downloaded "Tesseract-OCR" program to your path and creating an evironment variable called "TESSDATA_PREFIX" which contains the path to the "tessdata" folder in the "Tesseract-OCR" program folder.
+* [Google Tesseract OCR](https://tesseract-ocr.github.io/tessdoc/Home.html)
+    * [Windows Installer](https://github.com/UB-Mannheim/tesseract/wiki)
+        * Install either the 32 bit or 64 bit installer depending on your system specifications.
+        * Allow installer to run using the deafult values, and add the install location to your path, for example: ```C:\Program Files\Tesseract-OCR ```
+        * Create an evironment variable called "TESSDATA_PREFIX" which contains the path to the "tessdata" folder in the "Tesseract-OCR" program folder, for example: ```C:\Program Files\Tesseract-OCR\tessdata```
+    * [Generic Install Page](https://tesseract-ocr.github.io/tessdoc/Home.html)
+        * Follow install instructions in the link above for your operating system.
+        * Add the install location to your path.
+        * Create an evironment variable called "TESSDATA_PREFIX" which contains the path to the "tessdata" folder in the "Tesseract-OCR" program folder.
+
 * [Chrome](https://support.google.com/chrome/answer/95346?hl=en-GB&co=GENIE.Platform%3DDesktop)
     * Must be the most up to date version avalable.
         1. To check, open chrome and open "More", which appears as three vertical dots on the top right of the window.
@@ -17,6 +25,7 @@ This following repository contains a prototype automatic videography generation 
         3. Under "About Chrome", check if there is an update available and download it if so.
 * [FFmpeg](https://www.ffmpeg.org/)
     * Should be able to run on command line within virtual environment outlined below.
+    * Add install location to path
 
 ### Installation and Running
 

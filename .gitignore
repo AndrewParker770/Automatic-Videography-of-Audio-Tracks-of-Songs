@@ -1,8 +1,4 @@
-**/AudioFiles/
-**/TextFiles/
-**/VideoFiles/
-**/FrameFiles/
-**/static/
+**/static/*.txt
 **/__pycache__/
 **/db.sqlite3
 venv/

@@ -69,7 +69,12 @@ def index(request):
         
 
             # for ease of creating files to be kept for the collection tab
-            COLLECT_JSON = True
+            COLLECT_JSON = os.getenv('COLLECT_JSON')
+            if COLLECT_JSON == None:
+                COLLECT_JSON = False
+            else:
+                COLLECT_JSON = True
+            
 
             # Generate video file
             print("Begin strip")

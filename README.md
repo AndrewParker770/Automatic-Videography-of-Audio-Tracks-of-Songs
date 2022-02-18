@@ -23,9 +23,6 @@ This system was created and tested using a Windows Operating system, and althoug
         1. To check, open chrome and open "More", which appears as three vertical dots on the top right of the window.
         2. Then go to "Help", open "About Google Chrome".
         3. Under "About Chrome", check if there is an update available and download it if so.
-* [FFmpeg](https://www.ffmpeg.org/)
-    * Should be able to run on command line within virtual environment outlined below.
-    * Add install location to path
 
 ### Installation and Running
 

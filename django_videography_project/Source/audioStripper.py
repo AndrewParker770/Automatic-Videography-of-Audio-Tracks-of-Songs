@@ -103,23 +103,3 @@ def createCollectionJSON(song_name, artist_name, youtubeID, timings, aliasYoutub
         json.dump(json_string, f)
 
     return
-
-def createStaticFiles():
-    path_to_static = os.path.join(os.getcwd(), "videography", "static")
-    if not os.path.exists(path_to_static):
-        os.mkdir(path_to_static)
-
-    if not os.path.exists(os.path.join(path_to_static, "collection")):
-        os.mkdir(os.path.join(path_to_static, "collection"))
-    
-    if not os.path.exists(os.path.join(path_to_static, "imgs")):
-        os.mkdir(os.path.join(path_to_static, "imgs"))
-    
-    if not os.path.exists(os.path.join(path_to_static, "videos")):
-        os.mkdir(os.path.join(path_to_static, "videos"))
-
-
-
-
-    
-

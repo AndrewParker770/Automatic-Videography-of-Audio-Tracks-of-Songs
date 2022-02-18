@@ -22,9 +22,7 @@ import json
 
 
 def index(request):
-    # create these if not present
-    createStaticFiles()
-
+    
     #IF new process begins signal to stop this one
     STOP_PROCESSING = False
     stop_name = str(time.time()).split(".")[0] + ".txt"

@@ -2,7 +2,6 @@ from pytube import YouTube
 import moviepy.editor
 import sys, os, shutil
 import time
-import librosa
 import re
 import json
 
@@ -18,11 +17,12 @@ def deleteFiles(folders):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                print('Error: Unable to delete %s.' % (file_path))
+                print(f'Error: Unable to delete {file_path}.')
 
 def getSongLength(youtubeID):
-    y, sr = librosa.load("Source/AudioFiles/%s.wav"%(youtubeID))
-    return librosa.get_duration(y=y, sr=sr)
+    clip = VideoFileClip(f"Source/AudioFiles/{youtubeID}.wav")
+    duration = clip.duration
+    return duration
 
 def getID(youtubeLink):
     firstIndex = youtubeLink.find('=')
@@ -44,6 +44,7 @@ def stripAudio(youtubeLink, method):
         filename = f"{fakeYoutubeID}.{video_file_extension}"
         yt.streams.filter(progressive=True, file_extension=video_file_extension).order_by('resolution').desc().first().download("Source/VideoFiles/", filename=filename)
         result = True
+        print(f"Video result: {result}")
 
         audio_file_extension = "mp3"
         video = moviepy.editor.VideoFileClip("Source/VideoFiles/" + f"{fakeYoutubeID}.{video_file_extension}")
@@ -53,19 +54,25 @@ def stripAudio(youtubeLink, method):
 
         author = yt.author
         success = (True, 'Video')
+        return success, fakeYoutubeID
 
     except:
+        print("Failed")
         if method == 'lyrics':
             #Failure to extract video for lyrics method is a failure 
             success = (False, 'Video')
+            return success, fakeYoutubeID
         else:
             #other methods can recover if audio only extracted
             try:
                 backupAudioStripper(youtubeID)
                 success = (True, 'Audio')
+                return success, fakeYoutubeID
             except: 
                 success = (False, 'Audio')
-    return success, fakeYoutubeID
+                return success, fakeYoutubeID
+
+    
 
 def backupAudioStripper(youtubeID):
     ydl_opts = {

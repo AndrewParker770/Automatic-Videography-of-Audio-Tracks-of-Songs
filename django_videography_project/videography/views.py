@@ -2,37 +2,23 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 
 from Source.audioStripper import *
-from Source.getLyrics import extractLyrics
+from Source.getLyrics import *
+from Source.captionExtractor import *
+from Source.imageSearch import *
+from Source.compClip import *
+from Source.musicAlign import *
 
-from Source.captionExtractor import getCaptions
-from Source.captionExtractor import getKeywords
-from Source.captionExtractor import getLyricTranscript
-
-from Source.imageSearch import performImageSearch
-from Source.imageSearch import getGoogleImage
-from Source.imageSearch import extractFrames
-
-from Source.compClip import getTimings
-from Source.compClip import compileTimings
-from Source.compClip import getLyricTimings
-
-from Source.musicAlign import downloadDriver
-from Source.musicAlign import getSeleniumAlign
-from Source.musicAlign import validateJson
-from Source.musicAlign import trimTimings
-
-from Source.firebase import sendToDatabase
-from Source.firebase import initialiseSDK
+from Source.firebase import *
 
 from .forms import LinkForm
 from .forms import ArtistForm
 from .forms import FeedbackForm
 
 from moviepy.editor import *
-import gizeh
 import time
 import re
 import json
+
 
 
 def index(request):
@@ -88,6 +74,7 @@ def index(request):
             COLLECT_JSON = True
 
             # Generate video file
+            print("Begin strip")
             strip_success, aliasYoutubeID = stripAudio(youtubeUrl, method) # need to generate an alias id as packages error with punctuation common in youTube ids
             if not strip_success[0] and strip_success[1] == 'Video':
                 # This is a failure as lyrics require video so return to homepage
@@ -101,10 +88,12 @@ def index(request):
                 context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Could not extract audio from YouTube video. Please try again or use a different method'}
                 return render(request, 'videography/index.html', context=context_dict)
             
+            print("Strip successful")
 
 
             trueYoutubeID = getID(youtubeUrl)
 
+            print("Getting Lyrics!")
             # fetch genius lyrics if method requires it
             if method != 'captions':
                 try:
@@ -120,6 +109,7 @@ def index(request):
                     context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values are correct and try again.'}
                     return render(request, 'videography/index.html', context=context_dict)
 
+            print("Received Lyrics")
 
 
             if method == 'lyrics':

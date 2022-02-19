@@ -44,6 +44,9 @@ python -m venv venv
 . venv/Scripts/activate
 ```
 ```bash
+python -m pip install --upgrade pip
+```
+```bash
 pip install -r requirements.txt
 ```
 ```bash

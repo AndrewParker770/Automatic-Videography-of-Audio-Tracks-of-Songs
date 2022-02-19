@@ -56,10 +56,6 @@ Terminal output should prompt to open browser and access [local host.](http://12
 
 
 ### Collections
-The system can be broken down into multiple components as shown in the figure below, however not all methods use the same components which is denoted by the coloured arrows. A coloured arrow as input/output for a component can be read as 'if this method is activate then this component will take/produce this input/output'. And a black arrow denotes all methods and can be read as 'this input/output is always required/produced'.
-
-![ComponentDiagram](https://user-images.githubusercontent.com/60265517/154803188-cd2bf8f0-917e-4490-bb2e-e29786f19ee2.PNG)
-
 The system may store videos internally during the video generation process, however these videos (as well as any file made during its creation) are deleted once another video is generated. This is in part to prevent excessive files being stored, however this is mainly due to the issue of storing vidoes which are based on copyrighted content such as much music is.
 
 However, a collection folder for demonstartion purposes have been provided in the system and if required a method to manually enable videos by creating an evironment variable as follows:
@@ -70,9 +66,9 @@ Example of video generation:
 https://user-images.githubusercontent.com/60265517/154802216-56c4354d-1dae-4fb6-ab60-3cf1260c77b8.mp4
 
 ### Component Diagram 
+The system can be broken down into multiple components as shown in the figure below, however not all methods use the same components which is denoted by the coloured arrows. A coloured arrow as input/output for a component can be read as 'if this method is activate then this component will take/produce this input/output'. And a black arrow denotes all methods and can be read as 'this input/output is always required/produced'.
 
-
-
+![ComponentDiagram](https://user-images.githubusercontent.com/60265517/154803188-cd2bf8f0-917e-4490-bb2e-e29786f19ee2.PNG)
 
 ### Citations
 

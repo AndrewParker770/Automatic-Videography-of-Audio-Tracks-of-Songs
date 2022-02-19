@@ -58,7 +58,7 @@ Terminal output should prompt to open browser and access [local host.](http://12
 ### Collections
 The system may store videos internally during the video generation process, however these videos (as well as any file made during its creation) are deleted once another video is generated. This is in part to prevent excessive files being stored, however this is mainly due to the issue of storing vidoes which are based on copyrighted content such as much music is.
 
-However, a collection folder for demonstartion purposes have been provided in the system and if required a method to manually enable videos by creating an evironment variable as follows:
+However, a collection folder for demonstration purposes have been provided in the system and if required you can manually enable saving videos to the collection by creating an evironment variable before starting the django server as follows:
 ```bash export COLLECT_JSON=True ```
 
 ### Example of video generation

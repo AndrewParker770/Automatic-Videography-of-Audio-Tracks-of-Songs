@@ -61,7 +61,17 @@ The system may store videos internally during the video generation process, howe
 However, a collection folder for demonstartion purposes have been provided in the system and if required a method to manually enable videos by creating an evironment variable as follows:
 ```bash export COLLECT_JSON=True ```
 
-Example of video generation:
+### Example of video generation
+By supplying the forced alignment method in the prototypes menu and inputting the 
+* youtube url: https://www.youtube.com/watch?v=1iiDp6ga_qQ
+* artist name: America
+* song name: A Horse With No Name
+
+We can take the video (found at https://www.youtube.com/watch?v=1iiDp6ga_qQ) which appears as a lyrics video as follows:
+
+![Horse](https://user-images.githubusercontent.com/60265517/154803583-861308dd-34c4-4c5d-92e0-bccca53493e6.PNG)
+
+This video is then converted into the following:
 
 https://user-images.githubusercontent.com/60265517/154802216-56c4354d-1dae-4fb6-ab60-3cf1260c77b8.mp4
 

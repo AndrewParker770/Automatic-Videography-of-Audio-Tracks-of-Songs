@@ -101,8 +101,6 @@ def flattenTranscript(transcript):
 
 def returnKeyWords(text, numOfKeywords):
 
-    #TODO: key word files must not contain "?" ... turns out most of them
-    
     language = "en"
     max_ngram_size = 2
     deduplication_thresold = 0.9

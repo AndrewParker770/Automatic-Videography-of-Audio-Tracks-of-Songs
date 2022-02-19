@@ -148,5 +148,8 @@ def getLyricTimings(frame_list, fps):
         time = {'key': word, 'start': start_time + (duration_step * counter), 'duration': duration_step}
         counter += 1
         timings.append(time)
+
+    
+    #TODO: need to ensure lyrics do not operlap
     
     return timings

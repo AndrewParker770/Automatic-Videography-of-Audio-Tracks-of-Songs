@@ -59,15 +59,12 @@ Terminal output should prompt to open browser and access [local host.](http://12
 
 The system may store videos internally during the video generation process, however these videos (as well as any file made during its creation) are deleted once another video is generated. This is in part to prevent excessive files being stored, however this is mainly due to the issue of storing vidoes which are based on copyrighted content such as much music is.
 
-However, collections for demonstartion purposes 
+However, a collection folder for demonstartion purposes have been provided in the system and if required a method to manually enable videos by creating an evironment variable as follows:
+```bash export COLLECT_JSON=True" ```
 
+Example of video generation:
+https://user-images.githubusercontent.com/60265517/154802216-56c4354d-1dae-4fb6-ab60-3cf1260c77b8.mp4
 
-https://user-images.githubusercontent.com/60265517/154802154-80fde85a-4652-43a5-a9b6-1e30904e344b.mp4
-
-
-[COllections can be made this way]
-
-If a collection has been provided
 
 ### Citations
 

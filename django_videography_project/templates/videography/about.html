@@ -3,13 +3,39 @@
 {% block content %}
     <br>
     <div class='container col-md-6'>
-        <h3> What are the aims of this project?</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in nulla lorem. Ut egestas velit faucibus nisi tempor suscipit. Aenean porttitor lacinia ligula vitae iaculis. Duis odio sapien, accumsan ut condimentum vel, finibus a urna.</p>
-        <br>
-        <h5> Intro</h5>
-        <p> mi elit, interdum eu nibh id, egestas tincidunt velit. Donec vitae odio eget quam pellentesque bibendum sed vel massa. Suspendisse vel turpis et sem molestie bibendum sed vel justo. Nulla dictum mollis pharetra. Pellentesque at aliquet tortor, quis tempor ex. Praesent aliquet leo id faucibus consequat. Curabitur vitae arcu mattis, pretium mauris eget, mattis enim. Proin tempus lacus id sem condimentum, eget aliquam mi vehicula. Donec vulputate efficitur sem quis ornare. Morbi ac maximus libero. Nunc non euismod libero. Cras suscipit vitae mi vel pulvinar. Mauris gravida luctus odio, eget tincidunt mauris hendrerit eu. Sed mattis viverra vulputate. Curabitur sit amet mauris porttitor, porta neque ac, ultrices nunc.</p>
-        <br>
-        <h5> Results </h5>
-        <p> mi elit, interdum eu nibh id, egestas tincidunt velit. Donec vitae odio eget quam pellentesque bibendum sed vel massa. Suspendisse vel turpis et sem molestie bibendum sed vel justo. Nulla dictum mollis pharetra. Pellentesque at aliquet tortor, quis tempor ex. Praesent aliquet leo id faucibus consequat. Curabitur vitae arcu mattis, pretium mauris eget, mattis enim. Proin tempus lacus id sem condimentum, eget aliquam mi vehicula. Donec vulputate efficitur sem quis ornare. Morbi ac maximus libero. Nunc non euismod libero. Cras suscipit vitae mi vel pulvinar. Mauris gravida luctus odio, eget tincidunt mauris hendrerit eu. Sed mattis viverra vulputate. Curabitur sit amet mauris porttitor, porta neque ac, ultrices nunc.</p>
+        <h1>About this system</h1>
+
+        <h4>How To Use</h4>
+        <ol>
+            <li>Naviagte to the Home page.</li>
+            <li>Choose between:
+                <ul>
+                    <li>Forced Alignment Tool</li>
+                    <li>YouTube Captions Extractor</li>
+                    <li>Lyric Video Analysis</li>
+                </ul>
+                And fill in the form with:
+                    <ul>
+                        <li>Full YouTube Link</li>
+                        <li>Accredited Artist Name</li>
+                        <li>Song Name</li>
+                    </ul>
+            </li>
+            <li>Press submit and wait. This is a long process
+                and may take up to 10 mins at the most.  
+            </li>
+        </ol>
+            
+
+        <h4>Collections</h4>
+        <p>The system may store videos internally during the video generation process, 
+            however these videos (as well as any file made during its creation) are deleted 
+            once another video is generated. This is in part to prevent excessive files being stored, 
+            however this is mainly due to the issue of storing vidoes which are based on copyrighted content 
+            such as much music is.</p>
+        <p>However, a collection folder for demonstration purposes have been provided in the system and if 
+            required you can manually enable saving videos to the collection by creating an evironment variable
+            before starting the django server as follows:</p>
+        <p><kbd>bash export COLLECT_JSON=True</kbd></p>
     </div>
 {% endblock content %}

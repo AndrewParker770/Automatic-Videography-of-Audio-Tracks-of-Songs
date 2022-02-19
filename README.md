@@ -61,6 +61,10 @@ The system may store videos internally during the video generation process, howe
 
 However, collections for demonstartion purposes 
 
+
+https://user-images.githubusercontent.com/60265517/154802154-80fde85a-4652-43a5-a9b6-1e30904e344b.mp4
+
+
 [COllections can be made this way]
 
 If a collection has been provided

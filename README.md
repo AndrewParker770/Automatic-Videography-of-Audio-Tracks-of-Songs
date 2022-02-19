@@ -53,6 +53,9 @@ pip install Pillow
 pip install -r requirements.txt
 ```
 ```bash
+pip install git+https://github.com/ssuwani/pytube
+```
+```bash
 python -m pip install --upgrade pytube
 ```
 ```bash

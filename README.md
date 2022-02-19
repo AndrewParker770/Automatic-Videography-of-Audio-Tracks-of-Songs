@@ -47,6 +47,9 @@ python -m venv venv
 python -m pip install --upgrade pip
 ```
 ```bash
+pip install Pillow
+```
+```bash
 pip install -r requirements.txt
 ```
 ```bash

@@ -41,7 +41,7 @@ Create python virtual environment, activate it, and download the modules used by
 python -m venv venv
 ```
 ```bash
-. venv/Script/activate
+. venv/Scripts/activate
 ```
 ```bash
 pip install -r requirements.txt

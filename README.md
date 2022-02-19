@@ -62,9 +62,6 @@ pip install git+https://github.com/ssuwani/pytube
 python -m pip install --upgrade pytube
 ```
 ```bash
-python -m pip install --upgrade pytube
-```
-```bash
 cd django_videography_project
 ```
 ```bash

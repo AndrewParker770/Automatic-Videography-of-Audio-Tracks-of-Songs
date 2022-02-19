@@ -39,7 +39,6 @@ def stripAudio(youtubeLink, method):
     youtubeID = getID(youtubeLink)
     fakeYoutubeID = re.sub('[^a-zA-Z1-9]', '0', youtubeID)
 
-
     try:
         yt = YouTube(youtubeLink)
         video_file_extension = 'mp4'

@@ -75,6 +75,10 @@ This video is then converted into the following:
 
 https://user-images.githubusercontent.com/60265517/154802216-56c4354d-1dae-4fb6-ab60-3cf1260c77b8.mp4
 
+The figure below shows a section of the entries in timing dictionary which created each image, in the video above, shown in a timeline:
+
+![Timings](https://user-images.githubusercontent.com/60265517/154803847-f448016f-33b3-474a-b07c-99e7c93bc10c.PNG)
+
 ### Component Diagram 
 The system can be broken down into multiple components as shown in the figure below, however not all methods use the same components which is denoted by the coloured arrows. A coloured arrow as input/output for a component can be read as 'if this method is activate then this component will take/produce this input/output'. And a black arrow denotes all methods and can be read as 'this input/output is always required/produced'.
 

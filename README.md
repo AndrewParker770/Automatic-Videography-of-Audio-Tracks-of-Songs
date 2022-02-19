@@ -63,6 +63,7 @@ However, a collection folder for demonstartion purposes have been provided in th
 ```bash export COLLECT_JSON=True" ```
 
 Example of video generation:
+
 https://user-images.githubusercontent.com/60265517/154802216-56c4354d-1dae-4fb6-ab60-3cf1260c77b8.mp4
 
 

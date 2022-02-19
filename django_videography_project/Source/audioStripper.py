@@ -57,7 +57,6 @@ def stripAudio(youtubeLink, method):
         author = yt.author
         success = (True, 'Video')
         return success, fakeYoutubeID
-
     except:
         print("Failed")
         if method == 'lyrics':

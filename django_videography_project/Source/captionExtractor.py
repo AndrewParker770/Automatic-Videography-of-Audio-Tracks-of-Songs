@@ -117,7 +117,11 @@ def getLyricTranscript(keywords, fps):
     myconfig = r"--psm 11 --oem 3"
 
     ldir = os.listdir("Source/FrameFiles/")
-    num_list = [int(element.strip("frame.png")) for element in ldir]
+    num_list =[]
+    for element in ldir:
+        temp_value = element.strip("frame.pngitigno") 
+        if temp_value != '':
+            num_list.append(int(temp_value))
     num_list.sort()
     maximum_frame = num_list[-1]
 

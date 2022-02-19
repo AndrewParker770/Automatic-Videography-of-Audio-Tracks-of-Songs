@@ -102,6 +102,30 @@ def compileTimings(timings, song_duration, youtubeID, audio_clip, COLLECT_JSON):
     if COLLECT_JSON:
         shutil.move(f"videography/static/videos/{youtubeID}.mp4", f"videography/static/collection/{youtubeID}.mp4")
 
+def findConflicts(timings):
+    timings.sort(key=lambda n: n["start"])
+    conflict_found = False
+    new_timing_list = []
+    for counter, timing in enumerate(timings):
+        if counter+1 == len(timings):
+            break
+        timing_start = timings[counter]["start"]
+        timing_end = timings[counter]["start"] + timings[counter]["duration"]
+
+        new_timing = None
+        next_timing_start = timings[counter+1]["start"]
+        if next_timing_start < timing_end:
+            conflict_found = True
+            new_timing = timing
+            new_timing['duration'] = next_timing_start - timing_start
+        
+        if new_timing == None:
+            new_timing = timing
+        
+        new_timing_list.append(new_timing)
+        new_timing_list.sort(key=lambda n: n["start"], reverse=True)
+    
+    return conflict_found, new_timing_list
 
 def getLyricTimings(frame_list, fps):
     previous_timing = []
@@ -150,6 +174,6 @@ def getLyricTimings(frame_list, fps):
         timings.append(time)
 
     
-    #TODO: need to ensure lyrics do not operlap
+    conflict_found, new_timing_list = findConflicts(timings)
     
-    return timings
+    return new_timing_list

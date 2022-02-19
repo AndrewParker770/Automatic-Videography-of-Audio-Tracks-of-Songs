@@ -78,6 +78,9 @@ def index(request):
             else:
                 COLLECT_JSON = True
             
+            if COLLECT_JSON:
+                print("Will add to the collection!")
+            
 
             # Generate video file
             print("Begin strip")

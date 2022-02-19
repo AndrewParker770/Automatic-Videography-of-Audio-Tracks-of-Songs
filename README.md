@@ -53,6 +53,9 @@ pip install Pillow
 pip install -r requirements.txt
 ```
 ```bash
+python -m pip install --upgrade pytube
+```
+```bash
 cd django_videography_project
 ```
 ```bash

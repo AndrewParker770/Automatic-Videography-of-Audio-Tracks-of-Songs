@@ -83,7 +83,6 @@ def index(request):
             
 
             # Generate video file
-            print("Begin strip")
             strip_success, aliasYoutubeID = stripAudio(youtubeUrl, method) # need to generate an alias id as packages error with punctuation common in youTube ids
             if not strip_success[0] and strip_success[1] == 'Video':
                 # This is a failure as lyrics require video so return to homepage
@@ -96,13 +95,10 @@ def index(request):
                 artist_form = ArtistForm()
                 context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Could not extract audio from YouTube video. Please try again or use a different method'}
                 return render(request, 'videography/index.html', context=context_dict)
-            
-            print("Strip successful")
 
 
             trueYoutubeID = getID(youtubeUrl)
 
-            print("Getting Lyrics!")
             # fetch genius lyrics if method requires it
             if method != 'captions':
                 try:
@@ -117,8 +113,6 @@ def index(request):
                     artist_form = ArtistForm()
                     context_dict = {'currentpage': 'Index', 'artist_form':artist_form, 'error': 'Lyrics could not be fetched from Genius.com. Check artist and song values are correct and try again.'}
                     return render(request, 'videography/index.html', context=context_dict)
-
-            print("Received Lyrics")
 
 
             if method == 'lyrics':
@@ -262,6 +256,9 @@ def index(request):
                     # don't return anything as processing not completed
                     pass
     else:
+        #create the new stop file
+        with open(stop_file_path, 'w'):
+            pass
         # This is the GET request for the page
         artist_form = ArtistForm()
         context_dict = {'currentpage': 'Index', 'artist_form':artist_form}

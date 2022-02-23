@@ -3,61 +3,64 @@
 <!--% load crispy_forms_tags % -->
 
 {% block content %}
-    <div id = spinner1 class="container text-center no-display text-primary">
-        <br>
-        <br>
-        <div class="spinner-border align-middle" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-        
-    <div id='index-body'>
+    
+    <div>
         <div class="form-group">
                 <div class='container col-md-6'>
-                    <br>
-                    <h3>Complete the form below:</h3>
-                    <div>
-                        {% if error != None %}
-                            <br>
-                            <p id=errorid class="text-danger">Error: {{error}}</p>
-                        {% endif %} 
-                        {% if message != None %}
-                            <br>
-                            <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
-                        {% endif %}
-                    </div> 
-                    <form action="/videography/" method="post" onsubmit="submittionFunciton()">
-                        {% csrf_token %}
-                        <div id=radiodiv>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2"  value="music" checked>
-                                <label class="form-check-label" for="flexRadioDefault4">
-                                    Forced Alignment Tool
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" value="captions">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    YouTube Captions Extractor
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" value="lyrics">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    Lyric Video Analysis
-                                </label>
-                            </div>
-                        </div>
+                    <div id = spinner1 class="container text-center no-display text-primary">
                         <br>
-                        <div id=formid>
-                            <div id=artistId>
-                                {{ artist_form.as_p }}
-                            </div>
+                        <p>Video compilation has begun. Please wait for its completion...</p>
+                        <br>
+                        <div class="spinner-border align-middle" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                        <input type="submit" value="Submit" id='button1'>
-                    </form>
-                    <br>
-                    <p>Check out <a href="https://genius.com/" target="_blank" rel="noopener noreferrer">Genius.com</a> if unsure of artist or song name.</p>
+                    </div>
+                    <div id='index-body'>
+                        <br>
+                        <h3>Complete the form below:</h3>
+                        <div>
+                            {% if error != None %}
+                                <br>
+                                <p id=errorid class="text-danger">Error: {{error}}</p>
+                            {% endif %} 
+                            {% if message != None %}
+                                <br>
+                                <p id=messageid class="text-success">Submittion complete. Thank you for providing feedback.</p>
+                            {% endif %}
+                        </div> 
+                        <form action="/videography/" method="post" onsubmit="submittionFunciton()">
+                            {% csrf_token %}
+                            <div id=radiodiv>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2"  value="music" checked>
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        Forced Alignment Tool
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" value="captions">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        YouTube Captions Extractor
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" value="lyrics">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Lyric Video Analysis
+                                    </label>
+                                </div>
+                            </div>
+                            <br>
+                            <div id=formid>
+                                <div id=artistId>
+                                    {{ artist_form.as_p }}
+                                </div>
+                            </div>
+                            <input type="submit" value="Submit" id='button1'>
+                        </form>
+                        <br>
+                        <p>Check out <a href="https://genius.com/" target="_blank" rel="noopener noreferrer">Genius.com</a> if unsure of artist or song name.</p>
+                    </div>
                 </div>
 
             
@@ -75,13 +78,6 @@
         navigationBar.classList.remove('no-display')
         spinner.classList.add('no-display')
     }
-
-    const error = document.getElementById('errorid')
-    if (error != null){
-        const myTimeout = setTimeout(function(){
-            error.remove()
-        }, 20000);
-    };
 
     function submittionFunciton(){
         index.classList.add('no-display')

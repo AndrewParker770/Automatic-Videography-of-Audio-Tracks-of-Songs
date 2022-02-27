@@ -238,6 +238,68 @@
 
 * 1 hrs - Meeting and meeting prep
 
+# 29 January
+
+* 2 hrs - Feedback section will not error without sdk
+
+# 3 Feburary 2022
+
+* 1 hrs - Meeting and meeting prep
+
+# 9 Feburary 2022
+
+* 3 hrs - Fixing PyTube module
+
+# 10 Feburary 2022
+
+* 1 hrs - Meeting and meeting prep
+
+# 16 Feburary 2022
+
+* 4 hrs - Working on a fix for auto generated captions ebing off
+
+# 17 Feburary 2022
+
+* 1 hrs - Meeting and meeting prep
+
+* 3 hrs - Writing and reasearching conference paper
+
+# 18 Feburary 2022
+
+* 2 hrs - Added collection support
+
+* 3 hrs - Writing and reasearching conference paper
+
+# 19 Feburary 2022
+
+* 2 hrs - Updating READ.me to have accurate installation information
+
+* 2 hs - Testing installation process
+
+* 3 hrs - Writing and reasearching conference paper
+
+# 20 Feburary 2022
+
+* 2 hrs - Finding suitable canditates for video examples
+
+* 2 hrs - Planning a user study
+
+# 24 Feburary 2022
+
+* 1 hrs - Meeting and meeting prep
+
+* 2 hrs - Finding appropraite documents for participating in a user study
+
+* 3 hrs - Drawing up user study
+
+# 26 Feburary 2022
+
+* 6 hrs - Reasearching and writing Dissertation
+
+# 27 Feburary 2022
+
+* 6 hrs - Reasearching, writing, and editting Dissertation
+
 
 
 

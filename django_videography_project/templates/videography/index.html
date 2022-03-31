@@ -32,20 +32,20 @@
                             {% csrf_token %}
                             <div id=radiodiv>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2"  value="music" checked>
-                                    <label class="form-check-label" for="flexRadioDefault4">
+                                    <input class="form-check-input" type="radio" name="operation" id="alignment"  value="music" checked>
+                                    <label class="form-check-label" for="alignment">
                                         Forced Alignment Tool
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault1" value="captions">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="operation" id="captions" value="captions">
+                                    <label class="form-check-label" for="captions">
                                         YouTube Captions Extractor
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="operation" id="flexRadioDefault2" value="lyrics">
-                                    <label class="form-check-label" for="flexRadioDefault2">
+                                    <input class="form-check-input" type="radio" name="operation" id="analysis" value="lyrics">
+                                    <label class="form-check-label" for="analysis">
                                         Lyric Video Analysis
                                     </label>
                                 </div>
@@ -57,6 +57,15 @@
                                 </div>
                             </div>
                             <input type="submit" value="Submit" id='button1'>
+                            <br>
+                            <div>
+                                <h5>Auto-fill form for submission testing: </h5>
+                                
+                                <input type=button value="Forced Alignment" id='button2' onclick="formValue('alignment', 'https://www.youtube.com/watch?v=na47wMFfQCo', 'America', 'A Horse With No Name')" >
+                                <input type=button value="Caption Extractor" id='button3' onclick="formValue('captions', 'https://www.youtube.com/watch?v=CevxZvSJLk8', 'Katy Perry', 'Roar')">
+                                <input type=button value="Lyrical Analysis" id='button4' onclick="formValue('analysis', 'https://www.youtube.com/watch?v=CjPc8RVJ0Dc', 'One Direction', 'What Makes You Beautiful')">
+
+                            </div>
                         </form>
                         <br>
                         <p>Check out <a href="https://genius.com/" target="_blank" rel="noopener noreferrer">Genius.com</a> if unsure of artist or song name.</p>
@@ -68,6 +77,20 @@
     </div>
 
     <script>
+
+    function formValue(method, link, artist, song){
+        radioButton = document.getElementById(method);
+        radioButton.checked = true;
+
+        linkField = document.getElementById("id_youtube_link");
+        linkField.value = link;
+
+        artistField = document.getElementById("id_artist_name");
+        artistField.value = artist;
+
+        songField = document.getElementById("id_song_name");
+        songField.value = song
+    }
 
     const spinner = document.getElementById('spinner1');
     const navigationBar = document.getElementById('nav');

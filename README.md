@@ -94,11 +94,6 @@ The figure below shows a section of the entries in timing dictionary which creat
 
 ![Timings](https://user-images.githubusercontent.com/60265517/154803847-f448016f-33b3-474a-b07c-99e7c93bc10c.PNG)
 
-### Component Diagram 
-The system can be broken down into multiple components as shown in the figure below, however not all methods use the same components which is denoted by the coloured arrows. A coloured arrow as input/output for a component can be read as 'if this method is activate then this component will take/produce this input/output'. And a black arrow denotes all methods and can be read as 'this input/output is always required/produced'.
-
-![ComponentDiagram](https://user-images.githubusercontent.com/60265517/154803188-cd2bf8f0-917e-4490-bb2e-e29786f19ee2.PNG)
-
 ### Citations
 
 [C. Gupta, E. Yılmaz and H. Li, "Automatic Lyrics Alignment and Transcription in Polyphonic Music: Does Background Music Help?," ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Barcelona, Spain, 2020, pp. 496-500, doi: 10.1109/ICASSP40776.2020.9054567.](https://ieeexplore.ieee.org/document/9054567)

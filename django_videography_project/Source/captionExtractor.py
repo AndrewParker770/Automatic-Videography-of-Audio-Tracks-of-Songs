@@ -3,6 +3,8 @@ import os
 import yake
 import re
 import pytesseract
+import cv2
+import numpy as np
 
 from youtube_transcript_api import YouTubeTranscriptApi
 from PIL import Image
@@ -131,7 +133,16 @@ def getLyricTranscript(keywords, fps):
     #cycle through all frames in the file
     for i in range(0, maximum_frame + 1, int(fps/2)):
         print(f"Processing: {i}")
-        text = pytesseract.image_to_string(Image.open(f"Source/FrameFiles/frame{i}.png"), config=myconfig)
+        img = cv2.imread(f"Source/FrameFiles/frame{i}.png")
+
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+        img = cv2.medianBlur(img, 5)
+
+        text = pytesseract.image_to_string(img, config=myconfig)
+
+        print(text)
+
         possible_keys = []
         for word in keywords:
             key_list = word.split(" ")

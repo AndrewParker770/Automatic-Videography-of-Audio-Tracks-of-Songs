@@ -34,6 +34,9 @@ cd ~/<path>
 ```bash
 git clone https://github.com/AndrewParker770/Automatic-Videography-of-Audio-Tracks-of-Songs.git
 ```
+```bash
+cd Automatic-Videography-of-Audio-Tracks-of-Songs
+```
 
 Create python virtual environment, activate it, and download the modules used by the project:
 
